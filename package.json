@@ -1,7 +1,7 @@
 {
-  "name": "sole-searchers-admin",
+  "name": "f1-stats",
   "version": "1.0.0",
-  "description": "",
+  "description": "F1 lap time data for qualifying and races",
   "main": "src/index.js",
   "scripts": {
     "build": "rollup -c",
@@ -13,8 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sirv-cli": "^0.4.4",
-    "svelte": "^3.12.1"
+    "sirv-cli": "^0.4.4"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",
@@ -23,6 +22,7 @@
     "rollup-plugin-livereload": "^1.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.1.0",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.2",
+    "svelte": "^3.12.1"
   }
 }
