@@ -11,13 +11,15 @@
   });
 </script>
 
-<h1>Latest qualifying</h1>
-{#if qualiData}
-  <h1>{qualiData.raceName}</h1>
-  <h2>{qualiData.circuit}</h2>
-  {#each qualiData.results as result}
-    <QualifyingCard driverData={result} />
-  {/each}
-{:else}
-  <Loading />
-{/if}
+<div>
+  <h1>Latest qualifying</h1>
+  {#if qualiData}
+    <h1>{qualiData.raceName}</h1>
+    <h2>{qualiData.circuit}</h2>
+    {#each qualiData.results as result, i}
+      <QualifyingCard driverData={result} position={i + 1} />
+    {/each}
+  {:else}
+    <Loading />
+  {/if}
+</div>
