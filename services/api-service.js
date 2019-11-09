@@ -2,29 +2,62 @@ import dayjs from "dayjs";
 export default class ApiService {
   // This will become useful but this is a long process
 
-  async getLatestRoundQualifyingData() {
+  async getDriverData(driver) {
     const res = await fetch(
-      `https://ergast.com/api/f1/current/last/qualifying.json`
+      `https://ergast.com/api/f1/drivers/${driver}/results.json?limit=300`
     );
 
     const data = await res.json();
 
     if (res.ok) {
       if (data.MRData) {
-        const raceData = data.MRData.RaceTable.Races[0];
-        const results = raceData.QualifyingResults;
+        const raceData = data.MRData.RaceTable.Races;
+
+        // TODO: Move out into own util file
+        const getFastestLapData = race => {
+          if (race.Results[0].FastestLap) {
+            const fastestLapData = race.Results[0].FastestLap;
+
+            return {
+              isLapRecord: fastestLapData.rank == 1,
+              fastestLap: fastestLapData.lap,
+              fastestLapTime: fastestLapData.Time.time
+            };
+          }
+          return {};
+        };
+
+        //TODO: Move out into util file
+        const getDriverData = raceData => {
+          const driver = raceData[0].Results[0].Driver;
+
+          return {
+            driver: driver.givenName + " " + driver.familyName,
+            dateOfBirth: driver.dateOfBirth,
+            nationality: driver.nationality
+          };
+        };
+
+        const driver = getDriverData(raceData);
 
         return {
-          raceName: raceData.raceName,
-          circuit: raceData.Circuit.circuitName,
-          results: results.map(result => ({
-            position: result.position,
-            driver: result.Driver.givenName + " " + result.Driver.familyName,
-            driverNumber: result.number,
-            driverCode: result.Driver.code,
-            constructor: result.Constructor.name,
-            qualifyingSessions: [result["Q1"], result["Q2"], result["Q3"]]
-          }))
+          ...driver,
+          grandPrix: results.length,
+          results: raceData
+            .map(race => {
+              const fastestLap = getFastestLapData(race);
+
+              return {
+                position: race.Results[0].position,
+                grid: race.Results[0].grid,
+                raceName: race.raceName,
+                ...fastestLap
+                // driverNumber: race.number,
+                // driverCode: race.Driver.code,
+                // constructor: race.Constructor.name
+              };
+            })
+            .reverse()
         };
       }
     } else {
