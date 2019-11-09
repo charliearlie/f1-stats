@@ -30,11 +30,6 @@ const useStyles = makeStyles(theme =>
     resultInfo: {
       padding: "10px"
     },
-    main: {
-      margin: "0 auto",
-      marginTop: "120px",
-      maxWidth: 1280
-    },
     header: {
       display: "flex",
       justifyContent: "space-between",
@@ -72,7 +67,7 @@ function QualifyingPage(props) {
   };
 
   return (
-    <main className={styles.main}>
+    <>
       <div className={styles.qualifying}>
         <div className={styles.container}>
           {/* <Qualifying qualiData={qualiData} /> */}
@@ -96,7 +91,7 @@ function QualifyingPage(props) {
           <div></div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
 
