@@ -1,10 +1,10 @@
 import React from "react";
-import App from "next/app";
+import App, { Container } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Meta from "../components/meta.tsx";
 import Header from "../components/header/header";
+import Page from "../components/page";
 
 const theme = {
   red: "#e10600",
@@ -35,13 +35,12 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <React.Fragment>
-        <Head>
-          <Meta />
-        </Head>
+      <Container>
         <Header />
-        <Component {...pageProps} />
-      </React.Fragment>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </Container>
     );
   }
 }
