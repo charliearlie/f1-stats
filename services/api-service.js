@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
+import DriverService from "./driver-service";
 export default class ApiService {
+  constructor() {
+    this.driverService = new DriverService();
+  }
   // This will become useful but this is a long process
 
   async getDriverData(driver) {
@@ -32,6 +36,7 @@ export default class ApiService {
           const driver = raceData[0].Results[0].Driver;
 
           return {
+            age: dayjs().diff(driver.dateOfBirth, "years"),
             driver: driver.givenName + " " + driver.familyName,
             dateOfBirth: driver.dateOfBirth,
             nationality: driver.nationality
@@ -42,15 +47,20 @@ export default class ApiService {
 
         return {
           ...driver,
-          grandPrix: results.length,
+          grandPrix: raceData.length,
+          highestFinish: this.driverService.getHighestRaceFinish(raceData),
+          raceWins: this.driverService.getRaceWins(raceData),
           results: raceData
             .map(race => {
               const fastestLap = getFastestLapData(race);
 
               return {
-                position: race.Results[0].position,
+                country: race.Circuit.Location.country,
                 grid: race.Results[0].grid,
+                position: race.Results[0].position,
                 raceName: race.raceName,
+                round: race.round,
+                season: race.season,
                 ...fastestLap
                 // driverNumber: race.number,
                 // driverCode: race.Driver.code,
