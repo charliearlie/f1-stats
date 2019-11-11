@@ -3,7 +3,7 @@ import Header from "./header/header";
 import Meta from "./meta";
 
 const theme = {
-  red: "#E44847",
+  red: "#e10600",
   moderateRed: "#D46F58",
   black: "#393939",
   darkBlue: "#2B3B4C",
@@ -20,7 +20,8 @@ const theme = {
   spacingUnit: "0.8rem",
   spacingUnits: num => `${0.8 * num}rem`,
   mobileWidth: "600px",
-  ipadWidth: "1024px"
+  ipadWidth: "1024px",
+  fontFamily: "Titillium Web"
 };
 
 class Page extends React.Component {
