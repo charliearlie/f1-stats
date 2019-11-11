@@ -1,22 +1,39 @@
+import {
+  FlagNameAndPosition,
+  LapTime,
+  Position,
+  Result,
+  ResultRight
+} from "./styles/recent-results";
 function RecentResults(props) {
   const { driverData } = props;
   return (
     <>
-      <h2>Recent results</h2>
       {driverData.results.map(race => (
-        <div style={{ maxWidth: "600px", borderBottom: "1px solid #bbb" }}>
-          <h4>{race.raceName}</h4>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span>Starting grid position: {race.grid}</span>
-            <span>Finished: {race.position}</span>
-          </div>
-          <div>
+        <Result>
+          <FlagNameAndPosition>
+            <Position position={race.position}>{race.position}</Position>
+            <img src={`/images/flags/${race.country.toLowerCase()}.png`} />
+            <h2>
+              {race.raceName} ({race.season})
+            </h2>
+          </FlagNameAndPosition>
+          <ResultRight>
+            <span>Grid position:</span> <span>{race.grid}</span>
+            <span>Fastest Lap:</span>{" "}
+            <span>
+              <LapTime fastestLap={race.isLapRecord}>
+                {race.fastestLapTime}{" "}
+              </LapTime>
+            </span>
+          </ResultRight>
+          {/* <div>
             <p>
               Fastest Lap: {race.fastestLapTime} (Lap: {race.fastestLap}) <br />
               {race.isLapRecord && <span>FASTEST LAP</span>}
             </p>
-          </div>
-        </div>
+          </div> */}
+        </Result>
       ))}
     </>
   );

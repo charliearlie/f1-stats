@@ -24,8 +24,6 @@ const useStyles = makeStyles({
 function QualifyingTable(props) {
   const { data } = props;
   const styles = useStyles();
-
-  console.log(data);
   const renderDriverName = name => {
     const driverName = name.split(" ");
 
