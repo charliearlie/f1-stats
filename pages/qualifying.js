@@ -33,8 +33,13 @@ const useStyles = makeStyles(theme =>
     header: {
       display: "flex",
       justifyContent: "space-between",
+      margin: "8px 0",
       "& h1": {
-        marginTop: 0
+        margin: 0,
+
+        "@media (max-width: 600px)": {
+          fontSize: 20
+        }
       }
     }
   })
@@ -73,7 +78,7 @@ function QualifyingPage(props) {
           {/* <Qualifying qualiData={qualiData} /> */}
           <div className={styles.primary}>
             <div className={styles.header}>
-              <h1>{qualiData && qualiData.year} Season qualifying results</h1>
+              <h1>Qualifying results</h1>
               <Dropdown
                 afterChange={changeQualiYear}
                 options={seasons}
