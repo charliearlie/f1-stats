@@ -1,6 +1,7 @@
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Header from "./header/header";
 import Meta from "./meta";
+import Splash from "./common/splash";
 
 const theme = {
   red: "#e10600",
@@ -15,7 +16,7 @@ const theme = {
   lighterGrey: "#E0E0E0",
   offWhite: "#EDEDED",
   softBlue: "#68b2fc",
-  maxWidth: "1100px",
+  maxWidth: "1200px",
   bs: "0 12px 24px 0 rgba(0, 0, 0, 0.09)",
   spacingUnit: "0.8rem",
   spacingUnits: num => `${0.8 * num}rem`,
@@ -26,6 +27,7 @@ const theme = {
 
 class Page extends React.Component {
   render() {
+    console.log(this.props.children.type.name);
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -33,6 +35,7 @@ class Page extends React.Component {
           <StyledPage>
             <Meta />
             <Header />
+            <Splash currentPath={this.props.children.type.name} />
             <Inner>{this.props.children}</Inner>
           </StyledPage>
         </>
@@ -47,12 +50,12 @@ class Page extends React.Component {
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
+  padding-top: 100px;
 `;
 
 const Inner = styled.div`
   margin: auto;
   max-width: ${props => props.theme.maxWidth};
-  padding-top: 130px;
 
   p::selection,
   div::selection,
@@ -80,7 +83,7 @@ body {
   padding: 0;
   margin: 0;
   font-size: 1.5rem;
-  line-height: 2;
+  line-height: 1.5;
   background: white;
   color: ${theme.black};
 }
