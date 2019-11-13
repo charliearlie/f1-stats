@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -7,10 +6,12 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, createStyles } from "@material-ui/styles";
 
+import { StyledListItemText } from "./styles/dropdown";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    maxWidth: 150,
+    maxWidth: 100,
     backgroundColor: "#fff",
     borderRadius: "4px",
     border: "1px solid #bbb"
@@ -41,7 +42,7 @@ function Dropdown({ afterChange, options, startingOption }) {
 
   return options ? (
     <div className={styles.root}>
-      <List component="nav" aria-label="Device settings" disablePadding>
+      <List component="nav" aria-label="Change season" disablePadding>
         <ListItem
           button
           aria-haspopup="true"
@@ -49,10 +50,7 @@ function Dropdown({ afterChange, options, startingOption }) {
           aria-label="change year"
           onClick={handleClickListItem}
         >
-          <ListItemText
-            primary="Change year"
-            secondary={options[selectedIndex]}
-          />
+          <StyledListItemText>{options[selectedIndex]}</StyledListItemText>
         </ListItem>
       </List>
       <Menu
