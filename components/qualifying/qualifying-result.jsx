@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { makeStyles, createStyles } from "@material-ui/styles";
 import DateService from "../../services/date-service";
 
 import Preview from "../common/preview";
@@ -59,7 +58,7 @@ function Qualifying({ qualiData }) {
             <FastestLap>
               <Link
                 prefetch
-                href={`/drivers/${qualiData.fastestLap.Driver.familyName.toLowerCase()}`}
+                href={`/drivers/${qualiData.fastestLap.Driver.driverId}`}
               >
                 <a>{`${qualiData.fastestLap.Driver.givenName} ${qualiData.fastestLap.Driver.familyName}`}</a>
               </Link>
