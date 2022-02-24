@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import QualifyingResultsTable from '../components/qualifying-results-table';
+import QualifyingResultsTable from "../components/qualifying-results-table";
 
 const Home = (props) => {
   return (
@@ -71,6 +71,5 @@ const Home = (props) => {
     </div>
   );
 };
-
 
 export default Home;

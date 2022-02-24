@@ -1,12 +1,21 @@
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Select } from "@chakra-ui/react";
 import ApiHoc from "../components/hoc/api-hoc";
 import {
   getListOfSeasons,
-  getSeasonQualifyingResults,
+  getSeasonQualifyingPoles,
 } from "../actions/qualifying-actions";
 function Qualifying(props) {
-    console.log(props.qualifying.seasons);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSeasonQualifyingPoles());
+    dispatch(getListOfSeasons());
+  }, []);
+
+  const qualifying = useSelector((state) => state.qualifying);
+  console.log(qualifying.seasons);
   return (
     <div>
       <div
@@ -18,30 +27,18 @@ function Qualifying(props) {
         }}
       >
         <h2 style={{ fontWeight: "bold", fontSize: "22px" }}>Seasons</h2>
-        <code>{JSON.stringify(props.qualifying)}</code>
+        <code>{JSON.stringify(qualifying)}</code>
       </div>
       <Select placeholder="Select season">
-        {props.qualifying.seasons.length > 0 && props.qualifying.seasons.map((season => (
-            <option key={season} value={season}>{season}</option>
-        )))}
+        {qualifying.seasons.length > 0 &&
+          qualifying.seasons.map((season) => (
+            <option key={season} value={season}>
+              {season}
+            </option>
+          ))}
       </Select>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    qualifying: state.qualifying,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onLoad: () => {
-      dispatch(getSeasonQualifyingResults());
-      dispatch(getListOfSeasons());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ApiHoc(Qualifying));
+export default Qualifying;

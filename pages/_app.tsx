@@ -7,7 +7,7 @@ import Page from "../components/page";
 import { useStore } from "../store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const store = useStore(pageProps.initialReduxState)
+  const store = useStore(pageProps.initialReduxState);
   return (
     <ReduxProvider store={store}>
       <ChakraProvider>

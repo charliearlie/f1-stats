@@ -18,28 +18,28 @@ export default class ApiService {
         const raceData = data.MRData.RaceTable.Races;
 
         // TODO: Move out into own util file
-        const getFastestLapData = race => {
+        const getFastestLapData = (race) => {
           if (race.Results[0].FastestLap) {
             const fastestLapData = race.Results[0].FastestLap;
 
             return {
               isLapRecord: fastestLapData.rank == 1,
               fastestLap: fastestLapData.lap,
-              fastestLapTime: fastestLapData.Time.time
+              fastestLapTime: fastestLapData.Time.time,
             };
           }
           return {};
         };
 
         //TODO: Move out into util file
-        const getDriverData = raceData => {
+        const getDriverData = (raceData) => {
           const driver = raceData[0].Results[0].Driver;
 
           return {
             age: dayjs().diff(driver.dateOfBirth, "years"),
             driver: driver.givenName + " " + driver.familyName,
             dateOfBirth: driver.dateOfBirth,
-            nationality: driver.nationality
+            nationality: driver.nationality,
           };
         };
 
@@ -51,7 +51,7 @@ export default class ApiService {
           highestFinish: this.driverService.getHighestRaceFinish(raceData),
           raceWins: this.driverService.getRaceWins(raceData),
           results: raceData
-            .map(race => {
+            .map((race) => {
               const fastestLap = getFastestLapData(race);
 
               return {
@@ -61,13 +61,13 @@ export default class ApiService {
                 raceName: race.raceName,
                 round: race.round,
                 season: race.season,
-                ...fastestLap
+                ...fastestLap,
                 // driverNumber: race.number,
                 // driverCode: race.Driver.code,
                 // constructor: race.Constructor.name
               };
             })
-            .reverse()
+            .reverse(),
         };
       }
     } else {
@@ -92,14 +92,14 @@ export default class ApiService {
         return {
           raceName: raceData.raceName,
           circuit: raceData.Circuit.circuitName,
-          results: results.map(result => ({
+          results: results.map((result) => ({
             position: result.position,
             driver: result.Driver.givenName + " " + result.Driver.familyName,
             driverNumber: result.number,
             driverCode: result.Driver.code,
             constructor: result.Constructor.name,
-            qualifyingSessions: [result["Q1"], result["Q2"], result["Q3"]]
-          }))
+            qualifyingSessions: [result["Q1"], result["Q2"], result["Q3"]],
+          })),
         };
       }
     } else {
@@ -121,15 +121,15 @@ export default class ApiService {
 
         return {
           year: data.MRData.RaceTable.season,
-          results: races.map(race => ({
+          results: races.map((race) => ({
             circuit: race.Circuit.circuitName,
             country: race.Circuit.Location.country,
             date: race.date,
             fastestLap: race.QualifyingResults[0],
             raceName: race.raceName,
             round: race.round,
-            season: race.season
-          }))
+            season: race.season,
+          })),
         };
       }
     } else {
@@ -146,7 +146,7 @@ export default class ApiService {
       if (data.MRData) {
         const seasons = data.MRData.SeasonTable.Seasons;
 
-        return seasons.map(season => season.season);
+        return seasons.map((season) => season.season);
       }
     } else {
       return "Error";

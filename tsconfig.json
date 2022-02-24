@@ -15,6 +15,16 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/hoc/api-hoc.js", "actions/qualifying-actions.js", "pages/api/qualifying/season-qualifying-results.js", "store/store.js", "pages/index.jsx", "components/page.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/hoc/api-hoc.js",
+    "actions/qualifying-actions.js",
+    "pages/api/qualifying/season-qualifying-results.js",
+    "store/store.js",
+    "pages/index.jsx",
+    "components/page.jsx"
+  ],
   "exclude": ["node_modules"]
 }

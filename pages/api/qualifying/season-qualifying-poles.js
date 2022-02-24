@@ -1,5 +1,5 @@
 import { mapQualifyingResponse } from "../../../util";
-export default async function seasonQualifyingResultsHandler(req, res) {
+export default async function seasonQualifyingPolesHandler(req, res) {
   const {
     query: { year },
     method,
@@ -7,7 +7,7 @@ export default async function seasonQualifyingResultsHandler(req, res) {
 
   const season = year || "current";
   const results = await fetch(
-    `https://ergast.com/api/f1/${season}/qualifying.json`
+    `https://ergast.com/api/f1/${season}/qualifying/1.json`
   );
 
   const data = await results.json();

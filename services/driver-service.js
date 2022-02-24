@@ -5,13 +5,13 @@ export default class DriverService {
     return {
       driver: driver.givenName + " " + driver.familyName,
       dateOfBirth: driver.dateOfBirth,
-      nationality: driver.nationality
+      nationality: driver.nationality,
     };
   }
 
   getRaceWins(raceData) {
     const raceWins = raceData
-      .map(race => {
+      .map((race) => {
         return Number(race.Results[0].position);
       })
       .reduce((acc, currentValue) => acc + (currentValue === 1), 0);
@@ -22,7 +22,7 @@ export default class DriverService {
   //TODO: Calculate highest finish in race history
   getHighestRaceFinish(raceData) {
     return raceData
-      .map(race => {
+      .map((race) => {
         return Number(race.Results[0].position);
       })
       .sort()[0];
@@ -31,7 +31,7 @@ export default class DriverService {
   //TODO: Calculate how many podiums the driver has achieved
   getNumberOfPodiums(raceData) {
     return raceData
-      .map(race => {
+      .map((race) => {
         return Number(race.Results[0].position);
       })
       .reduce((acc, currentValue) => acc + (currentValue <= 3), 0);

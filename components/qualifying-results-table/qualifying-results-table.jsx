@@ -1,5 +1,5 @@
 export default function qualifyingResultsTable(props) {
-    console.log(props);
+  console.log(props);
 
-    return <div>Hello</div>
+  return <div>Hello</div>;
 }

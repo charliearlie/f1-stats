@@ -11,9 +11,9 @@ export default async function seasonsHandler(req, res) {
 
       const mappedSeasons = seasons.map((season) => season.season);
 
-      res.status(200).json(mappedSeasons)
+      res.status(200).json(mappedSeasons);
     }
   } else {
-    res.status(500).json({ error: 'error' })
+    res.status(500).json({ error: "error" });
   }
 }
