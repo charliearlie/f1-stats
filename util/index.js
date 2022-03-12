@@ -1,3 +1,3 @@
 import { mapQualifyingResponse } from "./map-qualifying-response";
-
-export { mapQualifyingResponse };
+import { mapRaceResponse } from "./map-race-response";
+export { mapQualifyingResponse, mapRaceResponse };
