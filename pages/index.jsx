@@ -1,11 +1,18 @@
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector} from "react-redux";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import QualifyingResultsTable from "../components/qualifying-results-table";
+import { getRaceSchedule } from '../actions/race-actions';
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRaceSchedule("2021"));
+  }, []);
+
+  const race = useSelector((state) => state.race);
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +22,6 @@ const Home = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <QualifyingResultsTable />
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>

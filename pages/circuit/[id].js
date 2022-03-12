@@ -3,24 +3,22 @@ import { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Select } from "@chakra-ui/react";
 import ApiHoc from "../../components/hoc/api-hoc";
+import { getListOfSeasons } from "../../actions/qualifying-actions";
 import {
-  getListOfSeasons,
-  getSeasonQualifyingPoles,
-} from "../../actions/qualifying-actions";
-import { getCircuitSeasonQualifyingResults } from "../../actions/circuit-actions";
-function CircuitPage(props) {
-  const router = useRouter();
+  getCircuitInformation,
+  getCircuitSeasonQualifyingResults,
+} from "../../actions/circuit-actions";
 
-  const { id } = router.query;
+function CircuitPage({ circuitId }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCircuitSeasonQualifyingResults(id));
+    dispatch(getCircuitInformation(circuitId));
+    dispatch(getCircuitSeasonQualifyingResults(circuitId));
     dispatch(getListOfSeasons());
   }, []);
 
   const circuit = useSelector((state) => state.circuit);
-  console.log(circuit);
   return (
     <div>
       <div
@@ -37,5 +35,9 @@ function CircuitPage(props) {
     </div>
   );
 }
+
+CircuitPage.getInitialProps = async (ctx) => {
+  return { circuitId: ctx.query.id };
+};
 
 export default CircuitPage;
