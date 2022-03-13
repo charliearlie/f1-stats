@@ -1,43 +1,26 @@
-import axios from "axios";
+import { requestData } from "./thunk-helper";
 import {
-    GET_RACE_RESULT_SUCCESS,
-    GET_RACE_SCHEDULE_SUCCESS,
+  SET_RACE_RESULT,
+  SET_RACE_SCHEDULE,
 } from "./action-types";
 
 export function getRoundRaceResult(season = "current", round) {
-  return (dispatch) => {
-    axios
-      .get(`/api/race/round-results?year=${season}&round=${round}`)
-      .then((res) => {
-        dispatch(setRaceRoundResult(res.data));
-      });
-  };
+  requestData(
+    `/api/race/round-results?year=${season}&round=${round}`,
+    setRaceRoundResult
+  );
 }
 
 export function getRaceSchedule(season = "current") {
-    return (dispatch) => {
-      axios
-        .get(`/api/race/race-schedule?year=${season}`)
-        .then((res) => {
-          dispatch(setRaceSchedule(res.data));
-        });
-    };
-  }
-
-export function getListOfSeasons() {
-  return (dispatch) => {
-    axios.get("/api/qualifying/get-seasons").then((res) => {
-      dispatch(getSeasonsSuccess(res.data));
-    });
-  };
+  requestData(`/api/race/race-schedule?year=${season}`, setRaceSchedule);
 }
 
 const setRaceRoundResult = (result) => ({
-  type: GET_RACE_RESULT_SUCCESS,
+  type: SET_RACE_RESULT,
   payload: result,
 });
 
 const setRaceSchedule = (result) => ({
-    type: GET_RACE_SCHEDULE_SUCCESS,
-    payload: result, 
+  type: SET_RACE_SCHEDULE,
+  payload: result,
 });

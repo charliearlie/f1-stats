@@ -1,35 +1,26 @@
 import axios from "axios";
+import { requestData } from "./thunk-helper";
 import {
-  GET_SEASONS_SUCCESS,
-  GET_SEASON_QUALIFYING_POLES_SUCCESS,
+  SET_QUALIFYING_SEASONS,
+  SET_SEASON_QUALIFYING_POLES,
   SET_QUALIFYING_SEASON,
 } from "./action-types";
 
 export function getSeasonQualifyingPoles(season = "current") {
-  return (dispatch) => {
-    axios
-      .get(`/api/qualifying/season-qualifying-poles?year=${season}`)
-      .then((res) => {
-        dispatch(getSeasonQualifyingResultsSuccess(res.data));
-      });
-  };
+  requestData(`/api/qualifying/season-qualifying-poles?year=${season}`, setSeasonQualifyingResults)
 }
 
 export function getListOfSeasons() {
-  return (dispatch) => {
-    axios.get("/api/qualifying/get-seasons").then((res) => {
-      dispatch(getSeasonsSuccess(res.data));
-    });
-  };
+  requestData("/api/qualifying/get-seasons", setSeasons);
 }
 
-const getSeasonsSuccess = (seasons) => ({
-  type: GET_SEASONS_SUCCESS,
+const setSeasons = (seasons) => ({
+  type: SET_QUALIFYING_SEASONS,
   payload: [...seasons],
 });
 
-const getSeasonQualifyingResultsSuccess = (poles) => ({
-  type: GET_SEASON_QUALIFYING_POLES_SUCCESS,
+const setSeasonQualifyingResults = (poles) => ({
+  type: SET_SEASON_QUALIFYING_POLES,
   payload: poles.results,
 });
 

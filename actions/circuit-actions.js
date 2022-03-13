@@ -1,50 +1,24 @@
 import axios from "axios";
+import { requestData } from "./thunk-helper";
 import {
-  GET_CIRCUIT_INFORMATION_SUCCESS,
-  GET_CIRCUIT_QUALIFYING_RESULTS_SUCCESS,
+  SET_CIRCUIT_INFORMATION,
+  SET_CIRCUIT_QUALIFYING_RESULTS,
 } from "./action-types";
 
 export function getCircuitSeasonQualifyingResults(circuit, season = "current") {
-  return (dispatch) => {
-    axios
-      .get(
-        `/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`
-      )
-      .then((res) => {
-        dispatch(getCircuitQualifyingResultsSuccess(res.data));
-      });
-  };
-}
-
-export function getCircuitRaceResults(circuit, season = "current") {
-  return (dispatch) => {
-    axios
-      .get(
-        `/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`
-      )
-      .then((res) => {
-        dispatch(getCircuitQualifyingResultsSuccess(res.data));
-      });
-  };
+  requestData(`/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`, setCircuitQualifyingResults);
 }
 
 export function getCircuitInformation(circuit) {
-  console.log(circuit);
-  return (dispatch) => {
-    axios
-      .get(`/api/circuit/circuit-information?circuitId=${circuit}`)
-      .then((res) => {
-        dispatch(getCircuitInformationSuccess(res.data));
-      });
-  };
+  requestData(`/api/circuit/circuit-information?circuitId=${circuit}`, setCircuitInformation)
 }
 
-const getCircuitQualifyingResultsSuccess = (response) => ({
-  type: GET_CIRCUIT_QUALIFYING_RESULTS_SUCCESS,
+const setCircuitQualifyingResults = (response) => ({
+  type: SET_CIRCUIT_QUALIFYING_RESULTS,
   payload: response.results,
 });
 
-const getCircuitInformationSuccess = (response) => ({
-  type: GET_CIRCUIT_INFORMATION_SUCCESS,
+const setCircuitInformation = (response) => ({
+  type: SET_CIRCUIT_INFORMATION,
   payload: response,
 });

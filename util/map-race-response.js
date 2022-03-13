@@ -7,15 +7,15 @@ export const mapRaceResponse = (response) => {
   if (race) {
     return {
       year,
-      results: race.Results.map(driverData => ({
-          driver: {
-              ...driverData.Driver,
-              driverNumber: driverData.number,
-              position: driverData.position,
-              grid: driverData.grid,
-              status: driverData.status,
-              time: driverData.Time?.time
-          }
+      results: race.Results.map((driverData) => ({
+        driver: {
+          ...driverData.Driver,
+          driverNumber: driverData.number,
+          position: driverData.position,
+          grid: driverData.grid,
+          status: driverData.status,
+          time: driverData.Time?.time,
+        },
       })),
       circuit: {
         id: race.Circuit.circuitId,

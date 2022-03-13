@@ -1,9 +1,9 @@
-import { connect, useDispatch, useSelector} from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { getRaceSchedule } from '../actions/race-actions';
+import { getRaceSchedule } from "../actions/race-actions";
 
 const Home = (props) => {
   const dispatch = useDispatch();
