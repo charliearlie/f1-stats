@@ -1,6 +1,6 @@
 import {
-  GET_CIRCUIT_INFORMATION_SUCCESS,
-  GET_CIRCUIT_QUALIFYING_RESULTS_SUCCESS,
+  SET_CIRCUIT_INFORMATION,
+  SET_CIRCUIT_QUALIFYING_RESULTS,
 } from "../actions/action-types";
 const initialState = {
   selectedCircuit: "",
@@ -11,9 +11,9 @@ const initialState = {
 
 export default function circuitReducer(state = initialState, action: any) {
   switch (action.type) {
-    case GET_CIRCUIT_QUALIFYING_RESULTS_SUCCESS:
+    case SET_CIRCUIT_QUALIFYING_RESULTS:
       return { ...state, qualifyingResults: action.payload };
-    case GET_CIRCUIT_INFORMATION_SUCCESS:
+    case SET_CIRCUIT_INFORMATION:
       return { ...state, selectedCircuit: action.payload };
     default:
       return state;

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function requestData(url, action) {
   return (dispatch) => {
     axios.get(url).then((res) => {

@@ -1,6 +1,6 @@
 import {
-  GET_RACE_RESULT_SUCCESS,
-  GET_RACE_SCHEDULE_SUCCESS,
+  SET_RACE_RESULT,
+  SET_RACE_SCHEDULE,
 } from "../actions/action-types";
 const initialState = {
   year: "current",
@@ -8,9 +8,9 @@ const initialState = {
 
 export default function raceReducer(state = initialState, action: any) {
   switch (action.type) {
-    case GET_RACE_RESULT_SUCCESS:
+    case SET_RACE_RESULT:
       return { ...state, ...action.payload };
-    case GET_RACE_SCHEDULE_SUCCESS:
+    case SET_RACE_SCHEDULE:
       return { ...state, schedule: action.payload };
     default:
       return state;

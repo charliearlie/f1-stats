@@ -5,14 +5,14 @@ import {
 } from "./action-types";
 
 export function getRoundRaceResult(season = "current", round) {
-  requestData(
+  return requestData(
     `/api/race/round-results?year=${season}&round=${round}`,
     setRaceRoundResult
   );
 }
 
 export function getRaceSchedule(season = "current") {
-  requestData(`/api/race/race-schedule?year=${season}`, setRaceSchedule);
+  return requestData(`/api/race/race-schedule?year=${season}`, setRaceSchedule);
 }
 
 const setRaceRoundResult = (result) => ({
