@@ -6,11 +6,17 @@ import {
 } from "./action-types";
 
 export function getCircuitSeasonQualifyingResults(circuit, season = "current") {
-  requestData(`/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`, setCircuitQualifyingResults);
+  requestData(
+    `/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`,
+    setCircuitQualifyingResults
+  );
 }
 
 export function getCircuitInformation(circuit) {
-  requestData(`/api/circuit/circuit-information?circuitId=${circuit}`, setCircuitInformation)
+  requestData(
+    `/api/circuit/circuit-information?circuitId=${circuit}`,
+    setCircuitInformation
+  );
 }
 
 const setCircuitQualifyingResults = (response) => ({

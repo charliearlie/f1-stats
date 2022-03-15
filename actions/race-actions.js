@@ -1,8 +1,5 @@
 import { requestData } from "./thunk-helper";
-import {
-  SET_RACE_RESULT,
-  SET_RACE_SCHEDULE,
-} from "./action-types";
+import { SET_RACE_RESULT, SET_RACE_SCHEDULE } from "./action-types";
 
 export function getRoundRaceResult(season = "current", round) {
   requestData(
