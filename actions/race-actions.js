@@ -1,23 +1,23 @@
 import { requestData } from "./thunk-helper";
-import { SET_RACE_RESULT, SET_RACE_SCHEDULE } from "./action-types";
+import { SET_RACE_RESULT, SET_SCHEDULE } from "./action-types";
 
 export function getRoundRaceResult(season = "current", round) {
-  requestData(
+  return requestData(
     `/api/race/round-results?year=${season}&round=${round}`,
-    setRaceRoundResult
+    setRoundRaceResult
   );
 }
 
 export function getRaceSchedule(season = "current") {
-  requestData(`/api/race/race-schedule?year=${season}`, setRaceSchedule);
+  return requestData(`/api/race/race-schedule?year=${season}`, setRaceSchedule);
 }
 
-const setRaceRoundResult = (result) => ({
+const setRoundRaceResult = (result) => ({
   type: SET_RACE_RESULT,
   payload: result,
 });
 
 const setRaceSchedule = (result) => ({
-  type: SET_RACE_SCHEDULE,
+  type: SET_SCHEDULE,
   payload: result,
 });

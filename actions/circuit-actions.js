@@ -6,14 +6,14 @@ import {
 } from "./action-types";
 
 export function getCircuitSeasonQualifyingResults(circuit, season = "current") {
-  requestData(
+  return requestData(
     `/api/circuit/qualifying-results?circuitId=${circuit}&year=${season}`,
     setCircuitQualifyingResults
   );
 }
 
 export function getCircuitInformation(circuit) {
-  requestData(
+  return requestData(
     `/api/circuit/circuit-information?circuitId=${circuit}`,
     setCircuitInformation
   );
