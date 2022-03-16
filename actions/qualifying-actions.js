@@ -7,7 +7,10 @@ import {
 } from "./action-types";
 
 export function getSeasonQualifyingPoles(season = "current") {
-  return requestData(`/api/qualifying/season-qualifying-poles?year=${season}`, setSeasonQualifyingResults)
+  return requestData(
+    `/api/qualifying/season-qualifying-poles?year=${season}`,
+    setSeasonQualifyingResults
+  );
 }
 
 export function getListOfSeasons() {
