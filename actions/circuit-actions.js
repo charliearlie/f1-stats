@@ -19,6 +19,10 @@ export function getCircuitInformation(circuit) {
   );
 }
 
+export function getAllCircuits() {
+  // https://app.asana.com/0/1201955292286879/1201965219657988/f
+}
+
 const setCircuitQualifyingResults = (response) => ({
   type: SET_CIRCUIT_QUALIFYING_RESULTS,
   payload: response.results,

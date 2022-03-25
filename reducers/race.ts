@@ -1,7 +1,4 @@
-import {
-  SET_RACE_RESULT,
-  SET_SCHEDULE,
-} from "../actions/action-types";
+import { SET_RACE_RESULT, SET_SCHEDULE } from "../actions/action-types";
 const initialState = {
   year: "current",
 };
