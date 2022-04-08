@@ -2,6 +2,7 @@ import { configureStore, current } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import circuit from "../reducers/circuit";
 import driver from "../reducers/driver";
+import historic from "../reducers/historic";
 import qualifying from "../reducers/qualifying";
 import race from "../reducers/race";
 import schedule from "../reducers/schedule";
@@ -14,6 +15,10 @@ const preloadedState = {
     year: "current",
   },
   driver: {},
+  historic: {
+    drivers: [],
+    seasons: [],
+  },
   qualifying: {
     year: new Date().getFullYear(),
     poles: [],
@@ -31,6 +36,7 @@ export const store = configureStore({
   reducer: {
     circuit,
     driver,
+    historic,
     qualifying,
     race,
     schedule,
