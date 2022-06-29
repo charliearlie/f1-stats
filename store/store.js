@@ -1,50 +1,74 @@
-import { configureStore, current } from "@reduxjs/toolkit";
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import circuit from "../reducers/circuit";
-import driver from "../reducers/driver";
-import historic from "../reducers/historic";
-import qualifying from "../reducers/qualifying";
-import race from "../reducers/race";
-import schedule from "../reducers/schedule";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createWrapper } from "next-redux-wrapper";
+import rootReducer from "../reducers";
 
-const preloadedState = {
-  circuit: {
-    selectedCircuit: "",
-    qualifyingResults: [],
-    raceResults: [],
-    year: "current",
-  },
-  driver: {},
-  historic: {
-    drivers: [],
-    seasons: [],
-  },
-  qualifying: {
-    year: new Date().getFullYear(),
-    poles: [],
-    seasons: [],
-  },
-  race: {
-    year: current,
-  },
-  schedule: {
-    year: "current",
-  },
-};
+// initial states here
+const initalState = {};
 
-export const store = configureStore({
-  reducer: {
-    circuit,
-    driver,
-    historic,
-    qualifying,
-    race,
-    schedule,
-  },
-  devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-  preloadedState,
-});
+// middleware
+const middleware = [thunk];
+
+// creating store
+export const store = createStore(
+  rootReducer,
+  initalState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
+
+// assigning store to next wrapper
+const makeStore = () => store;
+
+export const wrapper = createWrapper(makeStore);
+
+// import { configureStore, current } from "@reduxjs/toolkit";
+// import thunk from "redux-thunk";
+// import circuit from "../reducers/circuit";
+// import driver from "../reducers/driver";
+// import historic from "../reducers/historic";
+// import qualifying from "../reducers/qualifying";
+// import race from "../reducers/race";
+// import schedule from "../reducers/schedule";
+
+// const preloadedState = {
+//   circuit: {
+//     selectedCircuit: "",
+//     qualifyingResults: [],
+//     raceResults: [],
+//     year: "current",
+//   },
+//   driver: {},
+//   historic: {
+//     drivers: [],
+//     seasons: [],
+//   },
+//   qualifying: {
+//     year: new Date().getFullYear(),
+//     poles: [],
+//     seasons: [],
+//   },
+//   race: {
+//     year: current,
+//   },
+//   schedule: {
+//     year: "current",
+//   },
+// };
+
+// export const store = configureStore({
+//   reducer: {
+//     circuit,
+//     driver,
+//     historic,
+//     qualifying,
+//     race,
+//     schedule,
+//   },
+//   devTools: process.env.NODE_ENV !== "production",
+//   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+//   preloadedState,
+// });
 
 // import { useMemo } from "react";
 // import { createStore, applyMiddleware } from "redux";

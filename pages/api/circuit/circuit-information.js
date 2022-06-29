@@ -5,8 +5,6 @@ export default async function circuitInformationHandler(req, res) {
     query: { circuitId },
     method,
   } = req;
-
-  console.log(req.query);
   const results = await fetch(
     `https://ergast.com/api/f1/circuits/${circuitId}.json`
   );

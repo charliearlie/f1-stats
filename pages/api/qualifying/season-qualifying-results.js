@@ -7,7 +7,7 @@ export default async function seasonQualifyingResultsHandler(req, res) {
 
   const season = year || "current";
   const results = await fetch(
-    `https://ergast.com/api/f1/${season}/qualifying.json`
+    `https://ergast.com/api/f1/${season}/qualifying.json?limit=300`
   );
 
   const data = await results.json();

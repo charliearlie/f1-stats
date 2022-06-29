@@ -24,7 +24,8 @@
     "pages/api/qualifying/season-qualifying-results.js",
     "store/store.js",
     "pages/index.jsx",
-    "components/page.jsx"
+    "components/page.jsx",
+    "services/response-mappings.js"
   ],
   "exclude": ["node_modules"]
 }
