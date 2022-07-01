@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import countryCodeMap, { ICountryCodeMap } from "../../util/country-code-map";
+import { getRaceWeekendDates } from "../../services/date-service";
 import { IQualiSeason } from "../../interfaces";
 
 interface IProps {
@@ -35,6 +36,7 @@ function SeasonResult({ qualiSeason }: IProps) {
                 {result.raceName}
               </Heading>
               <Text>{result.circuit.name}</Text>
+              <Text>{getRaceWeekendDates(result.date)}</Text>
             </Stack>
             <Text>
               Pole: {result.fastestLap.Driver.givenName}{" "}

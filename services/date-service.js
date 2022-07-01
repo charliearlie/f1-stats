@@ -1,12 +1,11 @@
 import dayjs from "dayjs";
-export default class DateService {
-  getRaceWeekendDates(date) {
+  export function getRaceWeekendDates(date) {
     return `${dayjs(date).subtract(2, "day").format("DD")} - ${dayjs(
       date
     ).format("DD")} ${dayjs(date).format("MMM")}`;
   }
 
-  getRaceWeekendDatesObject(date) {
+  export function getRaceWeekendDatesObject(date) {
     return {
       days: `${dayjs(date).subtract(2, "day").format("DD")}-${dayjs(
         date
@@ -15,4 +14,3 @@ export default class DateService {
       year: `${dayjs(date).format("YYYY")}`,
     };
   }
-}
