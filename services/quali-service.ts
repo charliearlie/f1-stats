@@ -1,9 +1,13 @@
-import { IDriver, IQualiResult } from "../interfaces";
+import { IDriver, IQualiSeason } from "../interfaces";
 export const getDriverPolesForASeason = (
-  season: IQualiResult
+  season: IQualiSeason
 ): Array<IDriver> => {
   if (season) {
-    const poles = season.results.map((race) => race.fastestLap.Driver);
+    const poles = season.results.map((race) => ({
+        ...race.fastestLap.Driver,
+        constructor: race.fastestLap.Constructor
+    }));
+    
     const polesObject = poles.reduce(
       (obj: any, item: IDriver) => ({
         ...obj,

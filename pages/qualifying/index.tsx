@@ -56,11 +56,18 @@ function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
           </Text>
         </Container>
       </Box>
-      <Grid templateRows={"1fr"} templateColumns="repeat(5, 1fr)" gap={2}>
-        <GridItem rowSpan={2} colSpan={{ sm: 5, md: 1 }} bg="tomato">
-          <DriverPolesList qualiSeason={selectedSeasonResults} />
+      <Grid
+        templateRows={"1fr"}
+        templateColumns="repeat(5, 1fr)"
+        gap={2}
+        p="8px"
+      >
+        <GridItem rowSpan={2} colSpan={{ sm: 5, md: 1 }}>
+          <Box borderWidth="1px" borderRadius="lg">
+            <DriverPolesList qualiSeason={selectedSeasonResults} />
+          </Box>
         </GridItem>
-        <GridItem colSpan={{ sm: 5, md: 4 }} bg="papayawhip">
+        <GridItem colSpan={{ sm: 5, md: 4 }}>
           <SeasonResult qualiSeason={selectedSeasonResults} />
         </GridItem>
       </Grid>

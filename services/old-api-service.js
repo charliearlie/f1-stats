@@ -76,7 +76,6 @@ export default class ApiService {
   }
 
   async getRoundQualifyingData(raceSlug) {
-    console.log(raceSlug);
     const raceData = (raceSlug && raceSlug.split("-")) || [];
     const res = await fetch(
       `https://ergast.com/api/f1/${raceData[2]}/${raceData[0]}/qualifying.json`
