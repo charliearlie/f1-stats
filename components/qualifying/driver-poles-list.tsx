@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   Box,
   Container,
+  Divider,
   Flex,
   Heading,
   List,
@@ -34,7 +35,7 @@ function DriverPolesList({ qualiSeason }: IProps) {
         Pole sitters leaderboard
       </Heading>
       <List>
-        {driverPolesForASeason.map((driver) => (
+        {driverPolesForASeason.map((driver, index) => (
           <ListItem pt="8px" key={driver.driverId}>
             <Link href={`/driver/${driver.driverId}`} passHref>
               <a>
@@ -51,6 +52,7 @@ function DriverPolesList({ qualiSeason }: IProps) {
                 </Box>
               </a>
             </Link>
+            {index !== driverPolesForASeason.length - 1 && <Divider mt={2} />}
           </ListItem>
         ))}
       </List>

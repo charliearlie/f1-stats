@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 
 function CircuitPage({ circuitId }) {
-
   const circuit = useSelector((state) => state.circuit);
   return (
     <div>

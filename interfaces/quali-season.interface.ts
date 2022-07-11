@@ -1,6 +1,5 @@
 import { ICircuit } from "./circuit.interface";
 import { IFastestLap } from "./fastest-lap.interface";
-
 export interface IQualiSeason {
   year: string;
   results: Result[];

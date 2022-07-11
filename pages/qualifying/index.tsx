@@ -46,6 +46,8 @@ function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
     fetchNewSeason();
   }, [fetchNewSeason]);
 
+  console.log(selectedSeasonResults);
+
   return (
     <Box>
       <Box bg="black" p="24px" color="white">

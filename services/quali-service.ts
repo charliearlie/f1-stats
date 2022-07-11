@@ -4,10 +4,10 @@ export const getDriverPolesForASeason = (
 ): Array<IDriver> => {
   if (season) {
     const poles = season.results.map((race) => ({
-        ...race.fastestLap.Driver,
-        constructor: race.fastestLap.Constructor
+      ...race.fastestLap.Driver,
+      constructor: race.fastestLap.Constructor,
     }));
-    
+
     const polesObject = poles.reduce(
       (obj: any, item: IDriver) => ({
         ...obj,
