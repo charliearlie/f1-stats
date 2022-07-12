@@ -1,20 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-import countryCodeMap, { ICountryCodeMap } from "../../util/country-code-map";
-import { IQualiSeason } from "../../interfaces";
+import countryCodeMap, { ICountryCodeMap } from "../util/country-code-map";
+import { IQualiSeason, IRaceSeason } from "../interfaces";
 
 interface IProps {
-  qualiSeason: IQualiSeason;
+  season: IQualiSeason | IRaceSeason;
+  type: "qualifying" | "race";
 }
 
-function SeasonResult({ qualiSeason }: IProps) {
+function SeasonResult({ season, type }: IProps) {
   return (
     <Box>
-      {qualiSeason.results.map((result) => (
+      {season.results.map((result) => (
         <Link
           key={result.raceName}
-          href={`/qualifying/${qualiSeason.year}/${result.round}`}
+          href={`/${type}/${season.year}/${result.round}`}
           passHref
         >
           <Box
@@ -42,10 +43,18 @@ function SeasonResult({ qualiSeason }: IProps) {
                   {result.raceName}
                 </Heading>
                 <Text>{result.circuit.name}</Text>
-                <Text fontSize="sm" fontWeight="bold">
-                  Pole position: {result.fastestLap.Driver.givenName}{" "}
-                  {result.fastestLap.Driver.familyName} - {result.fastestLap.Q3}
-                </Text>
+                {"fastestLap" in result ? (
+                  <Text fontSize="sm" fontWeight="bold">
+                    Pole position: {result.fastestLap.Driver.givenName}{" "}
+                    {result.fastestLap.Driver.familyName} -{" "}
+                    {result.fastestLap.Q3}
+                  </Text>
+                ) : (
+                  <Text fontSize="sm" fontWeight="bold">
+                    Race Winner: {result.winner.givenName}{" "}
+                    {result.winner.familyName}
+                  </Text>
+                )}
               </Stack>
             </Flex>
           </Box>

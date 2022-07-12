@@ -17,28 +17,26 @@ import {
 import DriverPolesList from "../../components/qualifying/driver-poles-list";
 import {
   getListOfSeasons,
-  getYearQualifyingResults,
+  getYearRaceResults,
 } from "../../services/api-service";
 
-import { IQualiSeason } from "../../interfaces";
+import { IRaceSeason } from "../../interfaces";
 import SeasonResult from "../../components/season-result";
 
 interface IProps {
   listOfSeasons: Array<string>;
-  seasonResults: IQualiSeason;
+  seasonResults: IRaceSeason;
 }
 
-function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
+function RacePage({ listOfSeasons = [], seasonResults }: IProps) {
   const [selectedSeason, setSelectedSeason] = useState<string>(
     listOfSeasons[listOfSeasons.length - 1]
   );
   const [selectedSeasonResults, setSelectedSeasonResults] =
-    useState<IQualiSeason>(() => seasonResults);
+    useState<IRaceSeason>(() => seasonResults);
 
   const fetchNewSeason = useCallback(async () => {
-    const seasonResults: IQualiSeason = await getYearQualifyingResults(
-      selectedSeason
-    );
+    const seasonResults: IRaceSeason = await getYearRaceResults(selectedSeason);
     setSelectedSeasonResults(seasonResults);
   }, [selectedSeason]);
 
@@ -46,16 +44,11 @@ function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
     fetchNewSeason();
   }, [fetchNewSeason]);
 
-  console.log(selectedSeasonResults);
-
   return (
     <Box>
       <Box bg="black" p="24px" color="white">
         <Container>
-          <Heading as="h1">Qualifying results: {seasonResults.year}</Heading>
-          <Text color="gray.300">
-            (We only have full quali data from 2004 onwards)
-          </Text>
+          <Heading as="h1">Race results: {seasonResults.year}</Heading>
         </Container>
       </Box>
       <Grid
@@ -66,11 +59,11 @@ function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
       >
         <GridItem rowSpan={2} colSpan={{ sm: 5, md: 1 }}>
           <Box borderWidth="1px" borderRadius="lg">
-            <DriverPolesList qualiSeason={selectedSeasonResults} />
+            <Text>Haaaah yeah</Text>
           </Box>
         </GridItem>
         <GridItem colSpan={{ sm: 5, md: 4 }}>
-          <SeasonResult type="qualifying" season={selectedSeasonResults} />
+          <SeasonResult type="race" season={selectedSeasonResults} />
         </GridItem>
       </Grid>
       <Flex>
@@ -94,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const season = year || "current";
   const listOfSeasons = await getListOfSeasons();
-  const seasonResults = await getYearQualifyingResults(season);
+  const seasonResults = await getYearRaceResults(season);
 
   return {
     props: {
@@ -104,4 +97,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-export default QualifyingPage;
+export default RacePage;
