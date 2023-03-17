@@ -1,17 +1,26 @@
-function calculateTimeDifference(leadingTime: string, currentTime: string): string {
-    if (!leadingTime || !currentTime) return '';
-    
-    const [leadingTimeMinutes, leadingTimeSeconds, leadingTimeMilliseconds] = leadingTime.split(/[.:]+/);
-    
-    const [currentTimeMinutes, currentTimeSeconds, currentTimeMilliseconds] = currentTime.split(/[.:]+/);
-    
-    const leadingTimeInMilliseconds = (leadingTimeMinutes * 60000) + (leadingTimeSeconds * 1000) + Number(leadingTimeMilliseconds);
+function calculateTimeDifference(
+  leadingTime: string,
+  currentTime: string
+): string {
+  if (!leadingTime || !currentTime) return "";
 
-const currentTimeInMilliseconds = (currentTimeMinutes * 60000) + (currentTimeSeconds * 1000) + Number(currentTimeMilliseconds);
+  const [leadingTimeMinutes, leadingTimeSeconds, leadingTimeMilliseconds] =
+    leadingTime.split(/[.:]+/);
 
-console.log(currentTimeInMilliseconds);
+  const [currentTimeMinutes, currentTimeSeconds, currentTimeMilliseconds] =
+    currentTime.split(/[.:]+/);
 
-return String((currentTimeInMilliseconds - leadingTimeInMilliseconds) / 1000);
+  const leadingTimeInMilliseconds =
+    Number(leadingTimeMinutes) * 60000 +
+    Number(leadingTimeSeconds) * 1000 +
+    Number(leadingTimeMilliseconds);
+
+  const currentTimeInMilliseconds =
+    Number(currentTimeMinutes) * 60000 +
+    Number(currentTimeSeconds) * 1000 +
+    Number(currentTimeMilliseconds);
+
+  return String((currentTimeInMilliseconds - leadingTimeInMilliseconds) / 1000);
 }
 
 export default calculateTimeDifference;
