@@ -51,7 +51,10 @@ function QualifyingRoundPage({
                 </thead>
                 <tbody>
                   {results.map((result) => (
-                    <tr className="bg-white font-semibold border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr
+                      key={result.driverId}
+                      className="bg-white font-semibold border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                    >
                       <td className="px-2 py-4">{result.position}</td>
                       <td
                         className={`px-6 py-4 font-russo text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
