@@ -8,7 +8,6 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Page>
-      <Header />
       <Component {...pageProps} />
     </Page>
   );

@@ -191,11 +191,11 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
         driverCode: result.Driver.code,
         constructor: result.Constructor.name,
         constructorId: result.Constructor.constructorId,
-        qualifyingSessions: [
-          result["Q1"] ?? "",
-          result["Q2"] ?? "",
-          result["Q3"] ?? "",
-        ],
+        qualifyingSessions: {
+          q1: result["Q1"] || "",
+          q2: result["Q2"] || "",
+          q3: result["Q3"] || "",
+        },
         qualifyingTime: result.Q3 || result.Q2 || result.Q1,
         delta:
           index !== 0 && result.Q3

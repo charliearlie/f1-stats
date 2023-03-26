@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
 import NavLinks from "./nav-links";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearchIconClick = () => {
+    setMenuOpen(!menuOpen);
+    searchInputRef.current?.focus();
+  };
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 z-10 sticky top-0 rounded-b-md dark:bg-gray-900">
+    <header className="bg-white border-gray-200 p-2 z-10 sticky top-0 rounded-b-md dark:bg-gray-900">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
-        <a href="https://flowbite.com/" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <span className="self-centerfont-semibold text-2xl whitespace-nowrap font-russo dark:text-white">
             <span className="text-4xl">F1</span>Stats
           </span>
-        </a>
+        </Link>
         <div className="flex md:order-2">
           <button
             type="button"
@@ -18,6 +25,7 @@ export default function Header() {
             aria-controls="navbar-search"
             aria-expanded="false"
             className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+            onClick={handleSearchIconClick}
           >
             <svg
               className="w-5 h-5"
@@ -64,6 +72,7 @@ export default function Header() {
             className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-search"
             aria-expanded="false"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
             <span className="sr-only">Open menu</span>
             <svg
@@ -82,7 +91,9 @@ export default function Header() {
           </button>
         </div>
         <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+            menuOpen ? "block" : "hidden"
+          }`}
           id="navbar-search"
         >
           <div className="relative mt-3 md:hidden">
@@ -102,6 +113,7 @@ export default function Header() {
               </svg>
             </div>
             <input
+              ref={searchInputRef}
               type="text"
               id="search-navbar"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -111,6 +123,6 @@ export default function Header() {
           <NavLinks />
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

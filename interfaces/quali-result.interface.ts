@@ -1,10 +1,10 @@
 export interface IQualiResult {
   circuit: string;
   raceName: string;
-  results: Result[];
+  results: QualiFullResult[];
 }
 
-interface Result {
+export interface QualiFullResult {
   constructor: string;
   constructorId: string;
   delta: string;
@@ -13,6 +13,6 @@ interface Result {
   driverId: string;
   driverNumber: string;
   position: string;
-  qualifyingSessions: string[];
+  qualifyingSessions: { q1: string; q2: string; q3: string };
   qualifyingTime: string;
 }

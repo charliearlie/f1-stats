@@ -1,11 +1,13 @@
 import React from "react";
+import { Header } from "./header";
 import Meta from "./meta";
 class Page extends React.Component {
   render() {
     return (
       <div>
         <Meta />
-        <main>{this.props.children}</main>
+        <Header />
+        <>{this.props.children}</>
       </div>
     );
   }
