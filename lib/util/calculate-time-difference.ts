@@ -1,6 +1,6 @@
 function calculateTimeDifference(
-  leadingTime: string,
-  currentTime: string
+  leadingTime?: string,
+  currentTime?: string
 ): string {
   if (!leadingTime || !currentTime) return "";
 

@@ -1,105 +1,74 @@
-import { GetServerSideProps } from "next";
-import { useCallback, useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Text,
-} from "@chakra-ui/react";
-import DriverPolesList from "../../components/qualifying/driver-poles-list";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import {
   getListOfSeasons,
   getYearQualifyingResults,
 } from "../../services/api-service";
 
-import { IQualiSeason } from "../../interfaces";
-import SeasonResult from "../../components/season-result";
+import { IDriver, IQualiSeason } from "../../interfaces";
+import Schedule from "../../components/schedule/schedule";
+import Card from "../../components/common/card/card";
+import CardImage from "../../components/common/card/card-image";
+import CardContent from "../../components/common/card/card-content";
+import { getDriverPolesForASeason } from "../../services/quali-service";
 
 interface IProps {
-  listOfSeasons: Array<string>;
-  seasonResults: IQualiSeason;
+  data: {
+    driverPoles: IDriver[];
+    listOfSeasons: string[];
+    results: IQualiSeason;
+    season: string;
+  };
 }
 
-function QualifyingPage({ listOfSeasons = [], seasonResults }: IProps) {
-  const [selectedSeason, setSelectedSeason] = useState<string>(
-    listOfSeasons[listOfSeasons.length - 1]
-  );
-  const [selectedSeasonResults, setSelectedSeasonResults] =
-    useState<IQualiSeason>(() => seasonResults);
+function QualifyingPage({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { driverPoles, listOfSeasons, results, season } = data;
 
-  const fetchNewSeason = useCallback(async () => {
-    const seasonResults: IQualiSeason = await getYearQualifyingResults(
-      selectedSeason
-    );
-    setSelectedSeasonResults(seasonResults);
-  }, [selectedSeason]);
-
-  useEffect(() => {
-    fetchNewSeason();
-  }, [fetchNewSeason]);
-
-  console.log(selectedSeasonResults);
+  console.log("driverPoles", driverPoles);
 
   return (
-    <Box>
-      <Box bg="black" p="24px" color="white">
-        <Container>
-          <Heading as="h1">Qualifying results: {seasonResults.year}</Heading>
-          <Text color="gray.300">
-            (We only have full quali data from 2004 onwards)
-          </Text>
-        </Container>
-      </Box>
-      <Grid
-        templateRows={"1fr"}
-        templateColumns="repeat(5, 1fr)"
-        gap={2}
-        p="8px"
-      >
-        <GridItem rowSpan={2} colSpan={{ sm: 5, md: 1 }}>
-          <Box borderWidth="1px" borderRadius="lg">
-            <DriverPolesList qualiSeason={selectedSeasonResults} />
-          </Box>
-        </GridItem>
-        <GridItem colSpan={{ sm: 5, md: 4 }}>
-          <SeasonResult type="qualifying" season={selectedSeasonResults} />
-        </GridItem>
-      </Grid>
-      <Flex>
-        <Menu preventOverflow boundary="scrollParent">
-          <MenuButton as={Button}>{selectedSeason}</MenuButton>
-          <MenuList height="300px" overflow="scroll">
-            {listOfSeasons.map((season) => (
-              <MenuItem key={season} onClick={() => setSelectedSeason(season)}>
-                {season}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-      </Flex>
-    </Box>
+    <main className="p-2 lg:p-4 grid grid-cols-1 gap-4">
+      <Card>
+        <CardImage
+          className="h-48 md:h-80 object-cover rounded-t-lg"
+          src="https://res.cloudinary.com/bidhub/image/upload/c_scale,w_1952/v1679354072/brakeneck/Screenshot_2023-03-20_at_23.14.11.png"
+        />
+        <CardContent>
+          <div className="flex flex-col items-center justify-center py-4">
+            <h1 className="text-2xl md:text-4xl font-russo tracking-wider text-center">
+              {season} Qualifying
+            </h1>
+          </div>
+        </CardContent>
+      </Card>
+      <div className="grid grid-cols-1">
+        <div className="">
+          <Schedule type="qualifying" qualiSeason={results} />
+        </div>
+      </div>
+    </main>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<IProps> = async ({
+  query,
+}) => {
   const { year } = query;
 
   const season = year || "current";
   const listOfSeasons = await getListOfSeasons();
-  const seasonResults = await getYearQualifyingResults(season);
+  const seasonResults = await getYearQualifyingResults(season as string);
+  const driverPoles = getDriverPolesForASeason(seasonResults);
 
   return {
     props: {
-      seasonResults,
-      listOfSeasons,
+      data: {
+        driverPoles,
+        results: seasonResults,
+        listOfSeasons,
+        season: season === "current" ? "2023" : (season as string), // I hate this
+      },
     },
   };
 };

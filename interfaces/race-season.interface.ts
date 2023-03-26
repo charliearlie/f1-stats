@@ -3,16 +3,25 @@ import { IDriver } from "./driver.interface";
 
 export interface IRaceSeason {
   year: string;
-  results: Result[];
+  results: RaceResult[];
 }
 
-interface Result {
+export interface RaceResult {
   circuit: ICircuit;
   country: string;
   date: string;
-  winner: IDriver;
+  winner: IDriver | null;
   raceName: string;
   round: string;
   season: string;
-  time: string;
+  raceHasCompleted?: boolean;
+  raceTime: { date: string; time: string };
+  podium?: RacePreviewResult[];
 }
+
+export type RacePreviewResult = {
+  constructor: string;
+  driver: string;
+  position: string;
+  time?: { time: string; millis: string } | null;
+};

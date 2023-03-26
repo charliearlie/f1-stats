@@ -1,16 +1,5 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Divider,
-  Flex,
-  Heading,
-  List,
-  ListItem,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
 
 import { IDriver, IQualiSeason } from "../../interfaces";
 import { getDriverPolesForASeason } from "../../services/quali-service";
@@ -29,35 +18,7 @@ function DriverPolesList({ qualiSeason }: IProps) {
     setDriverPolesForASeason(poles);
   }, [qualiSeason]);
 
-  return (
-    <Container>
-      <Heading as="h3" size="md">
-        Pole sitters leaderboard
-      </Heading>
-      <List>
-        {driverPolesForASeason.map((driver, index) => (
-          <ListItem pt="8px" key={driver.driverId}>
-            <Link href={`/driver/${driver.driverId}`} passHref>
-              <a>
-                <Box>
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Stack spacing="0">
-                      <Text fontWeight="bold">{`${driver.givenName} ${driver.familyName}`}</Text>
-                      <Text mt="0">{driver.constructor.name}</Text>
-                    </Stack>
-                    <Text fontWeight="bold" fontSize="xl">
-                      {driver.numberOfPoles}
-                    </Text>
-                  </Flex>
-                </Box>
-              </a>
-            </Link>
-            {index !== driverPolesForASeason.length - 1 && <Divider mt={2} />}
-          </ListItem>
-        ))}
-      </List>
-    </Container>
-  );
+  return <div>We are going to redesign this whole site</div>;
 }
 
 export default DriverPolesList;

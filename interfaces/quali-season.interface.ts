@@ -1,16 +1,27 @@
-import { ICircuit } from "./circuit.interface";
-import { IFastestLap } from "./fastest-lap.interface";
+import { QualifyingResult } from "../lib/types";
+
 export interface IQualiSeason {
   year: string;
-  results: Result[];
+  results: QualiResult[];
 }
 
-interface Result {
-  circuit: ICircuit;
+export interface QualiResult {
+  circuit: { id: string; name: string };
   country: string;
   date: string;
-  fastestLap: IFastestLap;
+  fastestLap: QualifyingResult | null;
   raceName: string;
   round: string;
   season: string;
+  raceHasCompleted: boolean;
+  raceTime: { date: string; time: string };
+  qualifyingTime: { date: string; time: string };
+  topThree?: qualiPreviewResult[];
 }
+
+export type qualiPreviewResult = {
+  constructor: string;
+  driver: string;
+  position: string;
+  timeQualified: string | null;
+};
