@@ -13,7 +13,7 @@ export default function NavLinks() {
         <li key={link.label}>
           <Link
             href={link.url}
-            className="block py-2 pl-3 pr-4 font-russo text-xl text-white rounded md:bg-transparent text-whitemd:p-0 hover:text-blue-500"
+            className="block py-2 pl-3 pr-4 font-russo text-xl text-gray-800 dark:text-white rounded md:bg-transparent text-whitemd:p-0 hover:text-blue-500"
             aria-current="page"
           >
             {link.label}

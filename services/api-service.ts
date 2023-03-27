@@ -15,6 +15,7 @@ import {
   RaceResults,
 } from "../lib/types";
 import calculateTimeDifference from "../lib/util/calculate-time-difference";
+import { getRaceWeekendDates } from "./date-service";
 
 const axios = defaultAxios.create({ baseURL: "https://ergast.com/api/f1/" });
 
@@ -179,8 +180,10 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
     const qualiData = response.data.MRData.RaceTable.Races[0];
     const results = qualiData.QualifyingResults;
     const polePositionLapTime = results?.[0].Q3;
+    console.log(qualiData.date);
 
     return {
+      date: getRaceWeekendDates(qualiData.date),
       raceName: qualiData.raceName,
       circuit: qualiData.Circuit.circuitName,
       results: results?.map((result, index) => ({

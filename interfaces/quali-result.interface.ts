@@ -7,6 +7,7 @@ export interface IQualiResult {
 export interface QualiFullResult {
   constructor: string;
   constructorId: string;
+  date: string;
   delta: string;
   driver: string;
   driverCode: string;

@@ -10,6 +10,9 @@ import Card from "../../components/common/card/card";
 import CardImage from "../../components/common/card/card-image";
 import CardContent from "../../components/common/card/card-content";
 import { getDriverPolesForASeason } from "../../services/quali-service";
+import { useRouter } from "next/router";
+import DriverPolesList from "../../components/qualifying/driver-poles-list";
+import Link from "next/link";
 
 interface IProps {
   data: {
@@ -24,8 +27,15 @@ function QualifyingPage({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { driverPoles, listOfSeasons, results, season } = data;
+  const router = useRouter();
 
-  console.log("driverPoles", driverPoles);
+  console.log(driverPoles);
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    router.push(`/qualifying?year=${event.target.value}`);
+  };
+
+  console.log({ driverPoles });
 
   return (
     <main className="p-2 lg:p-4 grid grid-cols-1 gap-4">
@@ -39,6 +49,31 @@ function QualifyingPage({
             <h1 className="text-2xl md:text-4xl font-russo tracking-wider text-center">
               {season} Qualifying
             </h1>
+            {/* {driverPoles.map((driver) => (
+              <Link href={`/driver/${driver.driverId}`} className="flex gap-2">
+                <div className={`border-l-2 border-black`}>
+                  {driver.familyName} {driver.numberOfPoles}
+                </div>
+              </Link>
+            ))} */}
+            <label
+              htmlFor="countries"
+              className="block m-2 text-sm font-medium"
+            >
+              Change year
+            </label>
+            <select
+              id="years"
+              className="w-96 mx-auto bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={handleYearChange}
+              defaultValue={season}
+            >
+              {listOfSeasons.reverse().map((season) => (
+                <option key={season} value={season}>
+                  {season}
+                </option>
+              ))}
+            </select>
           </div>
         </CardContent>
       </Card>

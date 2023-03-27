@@ -7,8 +7,9 @@ import { QualiFullResult } from "../../interfaces/quali-result.interface";
 import Link from "next/link";
 
 type RequestData = {
-  raceName?: string;
   circuit?: string;
+  date: string;
+  raceName?: string;
   results?: QualiFullResult[];
 };
 
@@ -19,15 +20,20 @@ type Props = {
 function QualifyingRoundPage({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { results } = data;
+  const { circuit, date, raceName, results } = data;
   return (
-    <main className="p-8">
+    <main className="p-2 sm:p-8">
       <Card>
         <CardContent>
+          <div className="flex flex-col text-center items-center justify-center border-b-2 my-4 py-4 border-gray-200">
+            <h1>{raceName}</h1>
+            <h2 className="text-lg sm:text-3xl">{circuit}</h2>
+            <h3 className="text-sm sm:text-xl">{date}</h3>
+          </div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {results && results?.length > 0 ? (
-              <table className="w-full text-sm text-left text-gray-800 dark:text-gray-200">
-                <thead className="text-xs font-russo text-gray-800 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
+              <table className="w-full text-sm text-left">
+                <thead className="font-russo text-gray-800 uppercase text-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
                   <tr>
                     <th scope="col" className="px-2 py-3">
                       Pos.
@@ -57,7 +63,7 @@ function QualifyingRoundPage({
                     >
                       <td className="px-2 py-4">{result.position}</td>
                       <td
-                        className={`px-6 py-4 font-russo text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
+                        className={`px-6 py-4 font-russo text-md xs:text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
                       >
                         <Link href={`/driver/${result.driverId}`}>
                           {result.driver}
@@ -96,11 +102,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 
   return {
     props: {
-      data: {
-        raceName: roundData.raceName,
-        circuit: roundData.circuit,
-        results: roundData.results,
-      } as RequestData, // Hideous that I have to do this
+      data: roundData as RequestData,
     },
   };
 };
