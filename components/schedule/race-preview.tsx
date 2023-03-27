@@ -82,6 +82,7 @@ export default function RacePreview({
               ))
             ) : (
               <img
+                alt="Toto angry"
                 className="h-full w-full object-contain"
                 src="https://cdn.images.express.co.uk/img/dynamic/73/590x/1521303_1.jpg?r=1636981906761"
               />

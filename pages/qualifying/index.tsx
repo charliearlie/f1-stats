@@ -11,8 +11,6 @@ import CardImage from "../../components/common/card/card-image";
 import CardContent from "../../components/common/card/card-content";
 import { getDriverPolesForASeason } from "../../services/quali-service";
 import { useRouter } from "next/router";
-import DriverPolesList from "../../components/qualifying/driver-poles-list";
-import Link from "next/link";
 
 interface IProps {
   data: {
@@ -28,8 +26,6 @@ function QualifyingPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { driverPoles, listOfSeasons, results, season } = data;
   const router = useRouter();
-
-  console.log(driverPoles);
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     router.push(`/qualifying?year=${event.target.value}`);

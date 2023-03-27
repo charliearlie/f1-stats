@@ -1,6 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useCallback, useEffect, useState } from "react";
-import DriverPolesList from "../../components/qualifying/driver-poles-list";
 import {
   getListOfSeasons,
   getYearRaceResults,

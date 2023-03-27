@@ -11,7 +11,10 @@ export default function PreviewLink({
         {/* Children is just the text. Maybe we could use a prop to make it more
         obvious */}
         <span className="font-russo">{children}</span>
-        <button className="rounded font-russo text-gray-800 p-2 outline outline-1 outline-gray-400">
+        <button
+          name="View results"
+          className="rounded font-russo text-gray-800 p-2 outline outline-1 outline-gray-400"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
