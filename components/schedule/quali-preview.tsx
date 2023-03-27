@@ -6,6 +6,7 @@ import Card from "../common/card/card";
 import CardAction from "../common/card/card-action";
 import CardContent from "../common/card/card-content";
 import CardImage from "../common/card/card-image";
+import RowCard from "../common/row/row-card";
 import PreviewLink from "./preview-link";
 
 type Props = Pick<
@@ -18,7 +19,7 @@ type Props = Pick<
   | "raceTime"
   | "season"
   | "topThree"
->;
+> & { type: "page" | "row" };
 
 export default function QualiPreview({
   circuit,
@@ -29,6 +30,7 @@ export default function QualiPreview({
   round,
   season,
   topThree,
+  type,
 }: Props) {
   let day;
   let monthName;
@@ -39,8 +41,10 @@ export default function QualiPreview({
     });
     day = raceDate.getDate();
   }
+
+  const CardWrapper = type === "page" ? Card : RowCard;
   return (
-    <Card>
+    <CardWrapper>
       <CardImage
         to={`/races/${season}/${round}`}
         src={`https://flagcdn.com/h240/${
@@ -71,7 +75,7 @@ export default function QualiPreview({
                 >
                   <span className="text-sm font-semibold flex justify-between items-center w-full">
                     <span>{r.driver}</span>
-                    <span className="bg-gray-200 rounded-lg py-0.5 px-2 text-xs font-bold">
+                    <span className="bg-gray-200 dark:bg-gray-900 rounded-lg py-0.5 px-2 text-xs font-bold">
                       {r.timeQualified}
                     </span>
                   </span>
@@ -94,6 +98,6 @@ export default function QualiPreview({
           </span>
         </PreviewLink>
       </CardAction>
-    </Card>
+    </CardWrapper>
   );
 }

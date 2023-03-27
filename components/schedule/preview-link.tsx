@@ -13,7 +13,7 @@ export default function PreviewLink({
         <span className="font-russo">{children}</span>
         <button
           name="View results"
-          className="rounded font-russo text-gray-800 p-2 outline outline-1 outline-gray-400"
+          className="rounded font-russo text-gray-800 dark:text-gray-300 p-2 outline outline-1 outline-gray-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

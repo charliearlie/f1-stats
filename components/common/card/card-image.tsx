@@ -17,9 +17,9 @@ export default function CardImage({ alt, src, to, ...imageProps }: Props) {
       >
         <img
           alt={alt}
-          className="h-32 w-full rounded-t-lg opacity-80"
+          className="h-40 md:32 w-full rounded-t-lg opacity-80"
           loading="lazy"
-          height="15rem"
+          height="10rem"
           width="100%"
           src={src}
           {...imageProps}
@@ -31,9 +31,9 @@ export default function CardImage({ alt, src, to, ...imageProps }: Props) {
   return (
     <img
       alt={alt}
-      className="h-32 w-full rounded-t-lg opacity-80"
+      className="h-40 md:32 w-full rounded-t-lg opacity-80"
       loading="lazy"
-      height="15rem"
+      height="10rem"
       src={src}
       width="100%"
       {...imageProps}

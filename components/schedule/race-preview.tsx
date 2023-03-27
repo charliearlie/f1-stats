@@ -74,7 +74,7 @@ export default function RacePreview({
                     <span className={`${index === 0 ? "font-russo" : ""}`}>
                       {r.driver}
                     </span>
-                    <span className="bg-gray-200 rounded-lg py-0.5 px-2 text-xs font-bold">
+                    <span className="bg-gray-200 dark:bg-gray-900 rounded-lg py-0.5 px-2 text-xs font-bold">
                       {r.time?.time}
                     </span>
                   </span>

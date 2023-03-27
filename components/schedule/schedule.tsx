@@ -22,7 +22,7 @@ function Schedule({ qualiSeason, raceSeason, type }: Props) {
         {qualiSeason.results.map((result) => {
           return (
             <QualiPreview
-              key={`${result.season} ${result.round}`}
+              key={`${result.season} ${result.round}`} type="page"
               {...result}
             />
           );
