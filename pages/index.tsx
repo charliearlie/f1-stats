@@ -21,7 +21,7 @@ const Home = ({
     <div className="">
       <Row>
         {qualifyingRow.results.map((result) => (
-          <QualiPreview type="row" {...result} />
+          <QualiPreview key={result.raceName} type="row" {...result} />
         ))}
         <RowCard>
           <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
