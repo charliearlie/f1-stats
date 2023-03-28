@@ -1,6 +1,4 @@
-import { GetServerSideProps, GetStaticProps, NextPageContext } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { GetServerSideProps, NextPageContext } from "next";
 
 function CircuitPage({ circuitId }: { circuitId: number }) {
   return (

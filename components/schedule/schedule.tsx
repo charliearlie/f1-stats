@@ -1,13 +1,6 @@
-import countryCodeMap, {
-  ICountryCodeMap,
-} from "../../lib/util/country-code-map";
-import Card from "../common/card/card";
-import CardImage from "../common/card/card-image";
-import CardContent from "../common/card/card-content";
-import type { IQualiSeason, IRaceSeason } from "../../interfaces";
-import CardAction from "../common/card/card-action";
 import RacePreview from "./race-preview";
 import QualiPreview from "./quali-preview";
+import type { IQualiSeason, IRaceSeason } from "../../interfaces";
 
 interface Props {
   qualiSeason?: IQualiSeason;

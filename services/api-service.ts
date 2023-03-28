@@ -3,7 +3,10 @@ import merge from "lodash.merge";
 import { IQualiSeason, IRaceSeason } from "../interfaces";
 import { qualiPreviewResult } from "../interfaces/quali-season.interface";
 import { RacePreviewResult } from "../interfaces/race-season.interface";
-import {
+import calculateTimeDifference from "../lib/util/calculate-time-difference";
+import { getRaceWeekendDates } from "./date-service";
+
+import type {
   ResultResponse,
   Race,
   SeasonsResponse,
@@ -14,9 +17,6 @@ import {
   QualifyingResult,
   RaceResults,
 } from "../lib/types";
-import calculateTimeDifference from "../lib/util/calculate-time-difference";
-import { getRaceWeekendDates } from "./date-service";
-
 const axios = defaultAxios.create({ baseURL: "https://ergast.com/api/f1/" });
 
 // Really should be making these requests to our API routes. Will consider changing that in future

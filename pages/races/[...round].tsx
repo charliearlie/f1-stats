@@ -1,12 +1,8 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-import {
-  getRoundQualifyingResult,
-  getRoundRaceResult,
-} from "../../services/api-service";
+import { getRoundRaceResult } from "../../services/api-service";
 import Card from "../../components/common/card/card";
 import CardContent from "../../components/common/card/card-content";
-import { QualiFullResult } from "../../interfaces/quali-result.interface";
 import Link from "next/link";
 import { RaceFullResult } from "../../interfaces/race-result.interface";
 import RaceStatus from "../../components/race-status";

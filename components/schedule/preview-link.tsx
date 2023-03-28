@@ -1,5 +1,5 @@
 import Link, { LinkProps } from "next/link";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 export default function PreviewLink({
   children,

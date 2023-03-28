@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import {
   getListOfSeasons,
@@ -10,7 +11,6 @@ import Card from "../../components/common/card/card";
 import CardImage from "../../components/common/card/card-image";
 import CardContent from "../../components/common/card/card-content";
 import { getDriverPolesForASeason } from "../../services/quali-service";
-import { useRouter } from "next/router";
 
 interface IProps {
   data: {

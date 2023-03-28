@@ -1,5 +1,3 @@
-import classNames from "classnames";
-import { RaceResult } from "../../interfaces/race-season.interface";
 import countryCodeMap, {
   ICountryCodeMap,
 } from "../../lib/util/country-code-map";
@@ -8,6 +6,8 @@ import CardAction from "../common/card/card-action";
 import CardContent from "../common/card/card-content";
 import CardImage from "../common/card/card-image";
 import PreviewLink from "./preview-link";
+
+import type { RaceResult } from "../../interfaces/race-season.interface";
 
 type Props = Pick<
   RaceResult,

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import Card from "../card/card";
 
 export default function RowCard({ children }: PropsWithChildren<{}>) {

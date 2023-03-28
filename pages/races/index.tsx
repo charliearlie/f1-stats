@@ -1,5 +1,4 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useCallback, useEffect, useState } from "react";
 import {
   getListOfSeasons,
   getYearRaceResults,
