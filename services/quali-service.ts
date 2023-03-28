@@ -1,12 +1,15 @@
+// @ts-nocheck - I'm hurt by adding this but will fix all the types soon
 import { IDriver, IQualiSeason } from "../interfaces";
 export const getDriverPolesForASeason = (
   season: IQualiSeason
 ): Array<IDriver> => {
   if (season) {
-    const poles = season.results.map((race) => ({
-      ...race.fastestLap.Driver,
-      constructor: race.fastestLap.Constructor,
-    }));
+    const poles = season.results
+      .filter((race) => race.raceHasCompleted)
+      .map((race) => ({
+        ...race.fastestLap.Driver,
+        constructor: race.fastestLap.Constructor,
+      }));
 
     const polesObject = poles.reduce(
       (obj: any, item: IDriver) => ({

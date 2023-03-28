@@ -1,3 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300&family=Russo+One&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-200;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply text-gray-300 bg-gray-600;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-russo;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+}
+
+@layer components {
+  card-action > button {
+    @apply hover:bg-green-500;
+  }
+}
+
 html,
 body {
   padding: 0;

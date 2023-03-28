@@ -23,7 +23,7 @@
     "actions/qualifying-actions.js",
     "pages/api/qualifying/season-qualifying-results.js",
     "store/store.js",
-    "pages/index.jsx",
+    "pages/index.tsx",
     "components/page.jsx",
     "services/response-mappings.js"
   ],

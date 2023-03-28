@@ -1,10 +1,15 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-import { getRoundQualifyingResult } from "../../services/api-service";
+import {
+  getRoundQualifyingResult,
+  getRoundRaceResult,
+} from "../../services/api-service";
 import Card from "../../components/common/card/card";
 import CardContent from "../../components/common/card/card-content";
 import { QualiFullResult } from "../../interfaces/quali-result.interface";
 import Link from "next/link";
+import { RaceFullResult } from "../../interfaces/race-result.interface";
+import RaceStatus from "../../components/race-status";
 
 type RequestData = {
   season: string;
@@ -12,14 +17,14 @@ type RequestData = {
   circuit?: string;
   date: string;
   raceName?: string;
-  results?: QualiFullResult[];
+  results?: RaceFullResult[];
 };
 
 type Props = {
   data: RequestData;
 };
 
-function QualifyingRoundPage({
+function RacePage({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { circuit, date, raceName, results, round, season } = data;
@@ -32,7 +37,7 @@ function QualifyingRoundPage({
             <h2 className="text-lg sm:text-3xl">{circuit}</h2>
             <h3 className="text-sm sm:text-xl">{date}</h3>
             <Link
-              href={`/races/${season}/${round}`}
+              href={`/qualifying/${season}/${round}`}
               className="font-semibold underline py-4 hover:text-gray-500"
             >
               View qualifying result
@@ -46,19 +51,22 @@ function QualifyingRoundPage({
                     <th scope="col" className="px-2 py-3">
                       Pos.
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-3 py-3">
                       Driver
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Q1
+                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
+                      Constructor
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Q2
+                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
+                      Laps
                     </th>
-                    <th scope="col" className="px-6 py-3 hidden sm:table-cell">
-                      Q3
+                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
+                      Time
                     </th>
-                    <th scope="col" className="px-6 py-3 sm:hidden">
+                    <th scope="col" className="px-3 py-3">
+                      Points
+                    </th>
+                    <th scope="col" className="px-3 py-3 sm:hidden">
                       Time
                     </th>
                   </tr>
@@ -71,24 +79,25 @@ function QualifyingRoundPage({
                     >
                       <td className="px-2 py-4">{result.position}</td>
                       <td
-                        className={`px-6 py-4 font-russo text-md xs:text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
+                        className={`px-3 py-4 font-russo text-md xs:text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
                       >
                         <Link href={`/driver/${result.driverId}`}>
                           {result.driver}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 hidden sm:table-cell">
-                        {result.qualifyingSessions.q1}
+                      <td className="px-3 py-4 hidden sm:table-cell">
+                        {result.constructor}
                       </td>
-                      <td className="px-6 py-4 hidden sm:table-cell">
-                        {result.qualifyingSessions.q2}
+                      <td className="px-3 py-4 hidden sm:table-cell">
+                        {result.lapsCompleted}
                       </td>
-                      <td className="px-6 py-4 hidden sm:table-cell">
-                        {result.qualifyingSessions.q3}
+                      <td className="px-3 py-4">
+                        <RaceStatus
+                          status={result.status}
+                          time={result.raceTime}
+                        />
                       </td>
-                      <td className="px-6 py-4 font-bold sm:hidden">
-                        {result.qualifyingTime}
-                      </td>
+                      <td className="px-3 py-4">{result.points}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -106,7 +115,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 }) => {
   const [year, round] = query.round as string[];
 
-  const roundData = await getRoundQualifyingResult(round, year);
+  const roundData = await getRoundRaceResult(round, year);
 
   return {
     props: {
@@ -115,4 +124,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   };
 };
 
-export default QualifyingRoundPage;
+export default RacePage;
