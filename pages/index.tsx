@@ -16,7 +16,6 @@ type Props = {
 const Home = ({
   qualifyingRow,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log(qualifyingRow);
   return (
     <div className="">
       <Row>

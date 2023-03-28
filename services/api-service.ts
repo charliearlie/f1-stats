@@ -57,34 +57,30 @@ export const getYearRaceResults = async (selectedSeason: string) => {
 };
 
 export const getRoundRaceResult = async (round: string, year: string) => {
-  const response = await axios.get(`${year}/${round}/qualifying.json`);
+  const response: AxiosResponse<ResultResponse> = await axios.get(
+    `${year}/${round}/results.json`
+  );
 
   if (response.data.MRData) {
-    const qualiData = response.data.MRData.RaceTable.Races[0];
-    const results = qualiData.QualifyingResults;
-    const polePositionLapTime = results?.[0]?.Q3;
+    const raceData = response.data.MRData.RaceTable.Races[0];
+    const results = raceData.Results;
 
     return {
-      raceName: qualiData.raceName,
-      circuit: qualiData.Circuit.circuitName,
-      results: results?.map((result: any, index: number) => ({
-        position: result.position,
+      raceName: raceData.raceName,
+      circuit: raceData.Circuit.circuitName,
+      results: results?.map((result, index: number) => ({
+        constructor: result.Constructor.name,
+        constructorId: result.Constructor.constructorId,
         driver: result.Driver.givenName + " " + result.Driver.familyName,
         driverId: result.Driver.driverId,
         driverNumber: result.number,
         driverCode: result.Driver.code,
-        constructor: result.Constructor.name,
-        constructorId: result.Constructor.constructorId,
-        qualifyingSessions: [
-          result["Q1"] ?? "",
-          result["Q2"] ?? "",
-          result["Q3"] ?? "",
-        ],
-        qualifyingTime: result.Q3 || result.Q2 || result.Q1,
-        delta:
-          index !== 0 && result.Q3
-            ? calculateTimeDifference(polePositionLapTime, result["Q3"])
-            : "",
+        lapsCompleted: result.laps,
+        position: result.position,
+        raceTime: result.Time || { time: "", millis: "" },
+        startingPosition: result.grid,
+        status: result.status,
+        points: result.points || "",
       })),
     };
   }
@@ -180,7 +176,6 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
     const qualiData = response.data.MRData.RaceTable.Races[0];
     const results = qualiData.QualifyingResults;
     const polePositionLapTime = results?.[0].Q3;
-    console.log(qualiData.date);
 
     return {
       date: getRaceWeekendDates(qualiData.date),
@@ -209,8 +204,6 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
   }
 
   return {};
-
-  // console.log(qualiData);
 };
 
 export const getListOfSeasons = async () => {

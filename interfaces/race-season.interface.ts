@@ -1,3 +1,4 @@
+import { Time } from "../lib/types";
 import { ICircuit } from "./circuit.interface";
 import { IDriver } from "./driver.interface";
 
@@ -23,5 +24,5 @@ export type RacePreviewResult = {
   constructor: string;
   driver: string;
   position: string;
-  time?: { time: string; millis: string } | null;
+  time?: Time | null;
 };

@@ -117,10 +117,7 @@ export type RaceResults = {
   grid: string;
   laps: string;
   status: string;
-  Time: {
-    millis: string;
-    time: string;
-  } | null;
+  Time: Time;
   FastestLap: {
     rank: string;
     lap: string;
@@ -150,4 +147,9 @@ export type Constructor = {
   url: string;
   name: string;
   nationality: string;
+};
+
+export type Time = {
+  time: string;
+  millis: string;
 };
