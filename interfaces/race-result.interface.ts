@@ -1,6 +1,9 @@
 import { Time } from "../lib/types";
 
 export interface IRaceResult {
+  date: string;
+  season: string;
+  round: string;
   circuit: string;
   raceName: string;
   results: RaceFullResult[];

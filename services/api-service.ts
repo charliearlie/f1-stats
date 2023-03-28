@@ -66,6 +66,9 @@ export const getRoundRaceResult = async (round: string, year: string) => {
     const results = raceData.Results;
 
     return {
+      season: year,
+      round,
+      date: getRaceWeekendDates(raceData.date),
       raceName: raceData.raceName,
       circuit: raceData.Circuit.circuitName,
       results: results?.map((result, index: number) => ({
@@ -178,6 +181,8 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
     const polePositionLapTime = results?.[0].Q3;
 
     return {
+      season: year,
+      round,
       date: getRaceWeekendDates(qualiData.date),
       raceName: qualiData.raceName,
       circuit: qualiData.Circuit.circuitName,

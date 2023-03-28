@@ -12,6 +12,8 @@ import { RaceFullResult } from "../../interfaces/race-result.interface";
 import RaceStatus from "../../components/race-status";
 
 type RequestData = {
+  season: string;
+  round: string;
   circuit?: string;
   date: string;
   raceName?: string;
@@ -25,7 +27,7 @@ type Props = {
 function RacePage({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { circuit, date, raceName, results } = data;
+  const { circuit, date, raceName, results, round, season } = data;
   return (
     <main className="p-2 sm:p-8">
       <Card>
@@ -34,6 +36,12 @@ function RacePage({
             <h1>{raceName}</h1>
             <h2 className="text-lg sm:text-3xl">{circuit}</h2>
             <h3 className="text-sm sm:text-xl">{date}</h3>
+            <Link
+              href={`/qualifying/${season}/${round}`}
+              className="font-semibold underline py-4 hover:text-gray-500"
+            >
+              View qualifying result
+            </Link>
           </div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {results && results?.length > 0 ? (
