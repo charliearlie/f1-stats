@@ -20,20 +20,20 @@ export default function Row({
         {link && (
           <Link
             href={link}
-            className="hidden sm:block outline outline-gray-300 rounded py-1 px-2 font-russo hover:bg-gray-700"
+            className="hidden sm:flex items-center outline outline-gray-300 rounded py-1 px-2 font-russo hover:bg-gray-700"
           >
             View more
           </Link>
         )}
       </div>
-      <div className="flex gap-2 snap-x snap-mandatory w-full ml-2 sm:ml-0 sm:px-4 overflow-scroll sm:overflow-auto sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="flex gap-2 snap-x snap-mandatory w-full ml-2 sm:ml-0 sm:px-4 overflow-scroll sm:overflow-hidden sm:auto-rows-[0px] sm:gap-y-0 sm:grid sm:grid-cols-2 sm:grid-rows-1 md:grid-cols-3 lg:grid-cols-4">
         {children}
         {link && (
           <RowCard>
             <CardContent className="h-full flex items-center justify-center">
               <Link
                 href={link}
-                className="hidden sm:block outline outline-gray-300 rounded py-1 px-2 font-russo hover:bg-gray-700"
+                className="outline outline-gray-300 rounded py-1 px-2 font-russo hover:bg-gray-700"
               >
                 View more
               </Link>

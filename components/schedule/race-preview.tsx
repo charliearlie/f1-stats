@@ -8,6 +8,7 @@ import CardImage from "../common/card/card-image";
 import PreviewLink from "./preview-link";
 
 import type { RaceResult } from "../../interfaces/race-season.interface";
+import RowCard from "../common/row/row-card";
 
 type Props = Pick<
   RaceResult,
@@ -19,7 +20,7 @@ type Props = Pick<
   | "raceTime"
   | "season"
   | "winner"
->;
+> & { type: "page" | "row" };
 
 export default function RacePreview({
   circuit,
@@ -29,6 +30,7 @@ export default function RacePreview({
   raceTime,
   round,
   season,
+  type,
   winner,
 }: Props) {
   let day;
@@ -40,8 +42,10 @@ export default function RacePreview({
     });
     day = raceDate.getDate();
   }
+
+  const CardWrapper = type === "page" ? Card : RowCard;
   return (
-    <Card>
+    <CardWrapper>
       <CardImage
         to={`/races/${season}/${round}`}
         src={`https://flagcdn.com/h240/${
@@ -97,6 +101,6 @@ export default function RacePreview({
           </span>
         </PreviewLink>
       </CardAction>
-    </Card>
+    </CardWrapper>
   );
 }
