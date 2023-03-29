@@ -18,40 +18,10 @@ const Home = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className="">
-      <Row>
+      <Row heading="2023 season" link="/qualifying?year=2023">
         {qualifyingRow.results.map((result) => (
           <QualiPreview key={result.raceName} type="row" {...result} />
         ))}
-        <RowCard>
-          <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
-          <CardContent>
-            <h2>Mate</h2>
-          </CardContent>
-        </RowCard>
-        <RowCard>
-          <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
-          <CardContent>
-            <h2>Mate</h2>
-          </CardContent>
-        </RowCard>
-        <RowCard>
-          <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
-          <CardContent>
-            <h2>Mate</h2>
-          </CardContent>
-        </RowCard>
-        <RowCard>
-          <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
-          <CardContent>
-            <h2>Mate</h2>
-          </CardContent>
-        </RowCard>
-        <RowCard>
-          <CardImage src="https://wealthofgeeks.com/wp-content/uploads/2022/07/spongebob-rainbow-meme-imagination.jpg" />
-          <CardContent>
-            <h2>Mate</h2>
-          </CardContent>
-        </RowCard>
       </Row>
     </div>
   );
