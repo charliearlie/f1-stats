@@ -7,7 +7,7 @@ class Page extends React.Component {
       <div>
         <Meta />
         <Header />
-        <>{this.props.children}</>
+        <div className="xl:max-w-screen-xl mx-auto">{this.props.children}</div>
       </div>
     );
   }

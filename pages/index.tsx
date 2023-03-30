@@ -24,7 +24,7 @@ const Home = ({
   raceRow,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <div className="">
+    <>
       <Row heading="2023 season" link="/races?year=2023">
         {raceRow.results.map((result) => (
           <RacePreview key={result.raceName} type="row" {...result} />
@@ -47,7 +47,7 @@ const Home = ({
           </RowCard>
         ))}
       </Row>
-    </div>
+    </>
   );
 };
 

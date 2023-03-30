@@ -38,13 +38,8 @@ function RacePage({
         </CardContent>
       </Card>
       <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
-        <div className="sm:col-span-2 xl:col-span-4">
+        <div className="sm:col-span-2 xl:col-span-5">
           <Schedule type="race" raceSeason={results} />
-        </div>
-        <div className="xl:col-span-1">
-          <Card>
-            <CardContent>A sidebar</CardContent>
-          </Card>
         </div>
       </div>
     </main>
