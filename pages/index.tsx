@@ -1,37 +1,50 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Row from "../components/common/row/row";
-import CardImage from "../components/common/card/card-image";
-import CardContent from "../components/common/card/card-content";
+import { getListOfSeasons, getYearRaceResults } from "../services/api-service";
+import RacePreview from "../components/schedule/race-preview";
 import RowCard from "../components/common/row/row-card";
 import {
-  getYearQualifyingResults,
-  getYearRaceResults,
-} from "../services/api-service";
-import { IQualiSeason, IRaceSeason } from "../interfaces";
-import QualiPreview from "../components/schedule/quali-preview";
-import RacePreview from "../components/schedule/race-preview";
-import Card from "../components/common/card/card";
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardImage,
+} from "../components/common/card";
+import PreviewLink from "../components/schedule/preview-link";
+import type { IRaceSeason } from "../interfaces";
+import archiveImageMap from "../lib/util/archive-images";
 
 type Props = {
   qualifyingRow: any;
   raceRow: IRaceSeason;
-  archiveRow: any;
+  archiveRow: string[];
 };
 
 const Home = ({
+  archiveRow,
   raceRow,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className="">
-      {/* <Card>
-        <CardImage src="https://motorsportmagazine.b-cdn.net/wp-content/uploads/2019/04/Michael-Schumaacher-raises-his-arm-in-victory-after-winning-the-20026-F1-Chinese-Grand-Prix.jpg" />
-        <CardContent>
-          <h1 className="p-8">F1 Stats</h1>
-        </CardContent>
-      </Card> */}
       <Row heading="2023 season" link="/races?year=2023">
         {raceRow.results.map((result) => (
           <RacePreview key={result.raceName} type="row" {...result} />
+        ))}
+      </Row>
+      <Row heading="Archive" link={"/seasons"}>
+        {archiveRow.map((row) => (
+          <RowCard key={row}>
+            <CardImage src={archiveImageMap[row]} />
+            <CardContent>
+              <h3 className="flex items-center justify-center text-3xl">
+                {row}
+              </h3>
+            </CardContent>
+            <CardAction>
+              <PreviewLink href={`/races?year=${row}`}>
+                <span className="font-russo">View season</span>
+              </PreviewLink>
+            </CardAction>
+          </RowCard>
         ))}
       </Row>
     </div>
@@ -39,15 +52,20 @@ const Home = ({
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  //const listOfSeasons = await getListOfSeasons();
+  const listOfSeasons = await getListOfSeasons();
   const raceRow = await getYearRaceResults("current");
   // const driverPoles = getDriverPolesForASeason(seasonResults);
+
+  const archiveRow = listOfSeasons
+    .filter((season) => season !== raceRow.year)
+    .reverse()
+    .slice(0, 4); // We will do slicing in the request files
 
   return {
     props: {
       raceRow: { ...raceRow, results: raceRow.results.slice(0, 4) },
       qualifyingRow: "",
-      archiveRow: "",
+      archiveRow,
     },
   };
 };
