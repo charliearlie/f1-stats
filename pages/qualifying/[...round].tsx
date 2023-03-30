@@ -35,13 +35,13 @@ function QualifyingRoundPage({
               href={`/races/${season}/${round}`}
               className="font-semibold underline py-4 hover:text-gray-500"
             >
-              View qualifying result
+              View race result
             </Link>
           </div>
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {results && results?.length > 0 ? (
               <table className="w-full text-sm text-left">
-                <thead className="font-russo text-gray-800 uppercase text-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
+                <thead className="font-russo text-gray-800 uppercase text-md md:text-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
                   <tr>
                     <th scope="col" className="px-2 py-3">
                       Pos.

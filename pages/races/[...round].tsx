@@ -42,7 +42,7 @@ function RacePage({
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             {results && results?.length > 0 ? (
               <table className="w-full text-sm text-left">
-                <thead className="font-russo text-gray-800 uppercase text-xl bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
+                <thead className="font-russo text-gray-800 uppercase text-md md:text-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
                   <tr>
                     <th scope="col" className="px-2 py-3">
                       Pos.
@@ -56,14 +56,11 @@ function RacePage({
                     <th scope="col" className="px-3 py-3 hidden sm:table-cell">
                       Laps
                     </th>
-                    <th scope="col" className="px-3 py-3 hidden sm:table-cell">
-                      Time
-                    </th>
                     <th scope="col" className="px-3 py-3">
-                      Points
-                    </th>
-                    <th scope="col" className="px-3 py-3 sm:hidden">
                       Time
+                    </th>
+                    <th scope="col" className="px-3 py-3 hidden xs:table-cell">
+                      Points
                     </th>
                   </tr>
                 </thead>
@@ -75,7 +72,7 @@ function RacePage({
                     >
                       <td className="px-2 py-4">{result.position}</td>
                       <td
-                        className={`px-3 py-4 font-russo text-md xs:text-lg sm:text-xl border-l-2 border-${result.constructorId}`}
+                        className={`px-2 sm:px-3 py-4 font-russo text-md sm:text-xl border-l-2 border-${result.constructorId}`}
                       >
                         <Link href={`/driver/${result.driverId}`}>
                           {result.driver}
@@ -93,7 +90,9 @@ function RacePage({
                           time={result.raceTime}
                         />
                       </td>
-                      <td className="px-3 py-4">{result.points}</td>
+                      <td className="px-3 py-4 hidden xs:table-cell">
+                        {result.points}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -24,6 +24,11 @@ module.exports = {
         russo: ["Russo One"],
       },
     },
+    screens: {
+      xxs: "350px",
+      xs: "400px",
+      ...defaultTheme.screens,
+    },
   },
   safelist: [
     "border-alfa",
