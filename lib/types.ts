@@ -10,6 +10,10 @@ export type ScheduleResponse = {
   MRData: ScheduleTableMRData;
 };
 
+export type StandingsResponse = {
+  MRData: StandingsTableMRData;
+};
+
 export interface MRData {
   xmlns: string;
   series: string;
@@ -31,6 +35,10 @@ export interface ScheduleTableMRData extends MRData {
   RaceTable: ScheduleRaceTable;
 }
 
+export interface StandingsTableMRData extends MRData {
+  StandingsTable: StandingsTable;
+}
+
 export type RaceTable = {
   season: string;
   round: string;
@@ -45,6 +53,11 @@ export type ScheduleRaceTable = {
 
 export type SeasonTable = {
   Seasons: Season[];
+};
+
+type StandingsTable = {
+  season: string;
+  StandingsLists: StandingsList[];
 };
 
 export type Season = {
@@ -152,4 +165,27 @@ export type Constructor = {
 export type Time = {
   time: string;
   millis: string;
+};
+
+type StandingsList = {
+  season: string;
+  round: string;
+  DriverStandings: DriverStanding[];
+};
+
+type DriverStanding = {
+  position: string;
+  positionText: string;
+  points: string;
+  wins: string;
+  Driver: Driver;
+  Constructors: Constructor[];
+};
+
+export type Standing = {
+  driverName: string;
+  position: string;
+  points: string;
+  wins: string;
+  constructor: string;
 };

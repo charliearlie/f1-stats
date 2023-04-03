@@ -16,6 +16,8 @@ import type {
   ScheduleRace,
   QualifyingResult,
   RaceResults,
+  StandingsResponse,
+  Standing,
 } from "../lib/types";
 const axios = defaultAxios.create({ baseURL: "https://ergast.com/api/f1/" });
 
@@ -209,6 +211,31 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
   }
 
   return {};
+};
+
+export const getDriverStandings = async (
+  year = "current",
+  numberOfResults = 20
+) => {
+  const response: AxiosResponse<StandingsResponse> = await axios.get(
+    `${year}/driverStandings.json`
+  );
+  const standings =
+    response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+
+  return standings
+    .map(
+      (standing) =>
+        ({
+          driverName:
+            standing.Driver.givenName + " " + standing.Driver.familyName,
+          position: standing.position,
+          points: standing.points,
+          wins: standing.wins,
+          constructor: standing.Constructors[0].constructorId,
+        } as Standing)
+    )
+    .slice(0, numberOfResults);
 };
 
 export const getListOfSeasons = async () => {
