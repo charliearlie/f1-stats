@@ -4,7 +4,7 @@ function CircuitPage({ circuitId }: { circuitId: number }) {
   return (
     <div>
       <div>
-        <h2 className="text-2xl font-bold">Seasons</h2>
+        <h2 className="text-2xl font-bold">Seasons app route</h2>
         <code>{JSON.stringify(circuitId)}</code>
       </div>
     </div>

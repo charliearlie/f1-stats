@@ -1,6 +1,9 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-import { getRoundRaceResult } from "../../services/api-service";
+import {
+  getDriverStandings,
+  getRoundRaceResult,
+} from "../../services/api-service";
 import Card from "../../components/common/card/card";
 import CardContent from "../../components/common/card/card-content";
 import Link from "next/link";
@@ -111,10 +114,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const [year, round] = query.round as string[];
 
   const roundData = await getRoundRaceResult(round, year);
+  const standingsAfterRound = await getDriverStandings({ round });
 
   return {
     props: {
       data: roundData as RequestData,
+      standings: standingsAfterRound,
     },
   };
 };

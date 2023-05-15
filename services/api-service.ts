@@ -213,15 +213,25 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
   return {};
 };
 
-export const getDriverStandings = async (
+type GetDriverStandingsParams = {
+  year?: string;
+  numberOfResults?: number;
+  round?: string;
+};
+export const getDriverStandings = async ({
   year = "current",
-  numberOfResults = 20
-) => {
-  const response: AxiosResponse<StandingsResponse> = await axios.get(
-    `${year}/driverStandings.json`
-  );
-  const standings =
-    response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+  numberOfResults = 20,
+  round,
+}: GetDriverStandingsParams) => {
+  const uri = round
+    ? `${year}/${round}/driverStandings.json`
+    : `${year}/driverStandings.json`;
+  const response: AxiosResponse<StandingsResponse> = await axios.get(uri);
+
+  const standingsList = response.data.MRData.StandingsTable.StandingsLists;
+  const standings = round
+    ? standingsList.find((item) => item.round === round)?.DriverStandings!
+    : response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
 
   return standings
     .map(

@@ -35,9 +35,9 @@ const Home = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
-      <Card>
+      <Card className="my-4">
         <CardContent>
-          <h2>Driver standings</h2>
+          <h2 className="flex justify-center pb-4">Driver standings</h2>
           <MiniStandings standings={standings} />
         </CardContent>
       </Card>
@@ -70,8 +70,7 @@ const Home = ({
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const listOfSeasons = await getListOfSeasons();
   const raceRow = await getYearRaceResults("current");
-  const standings = await getDriverStandings("current", 10);
-  // const driverPoles = getDriverPolesForASeason(seasonResults);
+  const standings = await getDriverStandings({ numberOfResults: 10 });
 
   const archiveRow = listOfSeasons
     .filter((season) => season !== raceRow.year)
@@ -83,7 +82,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       raceRow: { ...raceRow, results: raceRow.results.slice(0, 4) },
       qualifyingRow: "",
       archiveRow,
-      standings,
+      standings: standings,
     },
   };
 };
