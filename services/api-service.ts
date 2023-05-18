@@ -19,9 +19,9 @@ import type {
   StandingsResponse,
   Standing,
 } from "../lib/types";
+import { notFound } from "next/navigation";
 const axios = defaultAxios.create({ baseURL: "https://ergast.com/api/f1/" });
 
-// Really should be making these requests to our API routes. Will consider changing that in future
 export const getYearRaceResults = async (selectedSeason: string) => {
   const racesResponse: AxiosResponse<ResultResponse> = await axios.get(
     `${selectedSeason}/results.json?limit=600`
@@ -178,7 +178,11 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
   );
 
   if (response.data.MRData) {
+    console.log("response.data", response.data);
     const qualiData = response.data.MRData.RaceTable.Races[0];
+    if (!qualiData) {
+      notFound();
+    }
     const results = qualiData.QualifyingResults;
     const polePositionLapTime = results?.[0].Q3;
 
@@ -213,15 +217,25 @@ export const getRoundQualifyingResult = async (round: string, year: string) => {
   return {};
 };
 
-export const getDriverStandings = async (
+type GetDriverStandingsParams = {
+  year?: string;
+  numberOfResults?: number;
+  round?: string;
+};
+export const getDriverStandings = async ({
   year = "current",
-  numberOfResults = 20
-) => {
-  const response: AxiosResponse<StandingsResponse> = await axios.get(
-    `${year}/driverStandings.json`
-  );
-  const standings =
-    response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+  numberOfResults = 20,
+  round,
+}: GetDriverStandingsParams) => {
+  const uri = round
+    ? `${year}/${round}/driverStandings.json`
+    : `${year}/driverStandings.json`;
+  const response: AxiosResponse<StandingsResponse> = await axios.get(uri);
+
+  const standingsList = response.data.MRData.StandingsTable.StandingsLists;
+  const standings = round
+    ? standingsList.find((item) => item.round === round)?.DriverStandings!
+    : response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
 
   return standings
     .map(

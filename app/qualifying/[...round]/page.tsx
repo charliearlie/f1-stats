@@ -1,28 +1,25 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-
-import { getRoundQualifyingResult } from "../../services/api-service";
-import Card from "../../components/common/card/card";
-import CardContent from "../../components/common/card/card-content";
-import { QualiFullResult } from "../../interfaces/quali-result.interface";
-
-type RequestData = {
-  season: string;
-  round: string;
-  circuit?: string;
-  date: string;
-  raceName?: string;
-  results?: QualiFullResult[];
-};
+import { Card, CardContent } from "../../../components/common/card";
+import { getRoundQualifyingResult } from "../../../services/api-service";
 
 type Props = {
-  data: RequestData;
+  params?: {
+    round?: [key: string];
+  };
+  searchParams?: {
+    search?: string;
+  };
 };
 
-function QualifyingRoundPage({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+async function getData(year: string, roundNumber: string) {
+  return await getRoundQualifyingResult(roundNumber, year);
+}
+
+async function QualifyingRoundPage(props: Props) {
+  const [year, roundNumber] = props.params?.round as string[];
+  const data = await getData(year, roundNumber);
   const { circuit, date, raceName, results, round, season } = data;
+
   return (
     <main className="p-2 sm:p-8">
       <Card>
@@ -100,19 +97,5 @@ function QualifyingRoundPage({
     </main>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-  query,
-}) => {
-  const [year, round] = query.round as string[];
-
-  const roundData = await getRoundQualifyingResult(round, year);
-
-  return {
-    props: {
-      data: roundData as RequestData,
-    },
-  };
-};
 
 export default QualifyingRoundPage;

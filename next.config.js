@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["flagcdn.com"],
   },
+  experimental: {
+    appDir: true,
+  },
 };
 
 module.exports = nextConfig;

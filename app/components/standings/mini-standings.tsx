@@ -1,5 +1,5 @@
-import { Standing } from "../../lib/types";
 import StandingItem from "./standing";
+import type { Standing } from "@/lib/types";
 
 type Props = {
   standings: Standing[];

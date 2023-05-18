@@ -1,27 +1,24 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import {
   getListOfSeasons,
   getYearRaceResults,
 } from "../../services/api-service";
 
-import { IRaceSeason } from "../../interfaces";
 import { Schedule } from "../../components/schedule";
 import Card from "../../components/common/card/card";
 import CardImage from "../../components/common/card/card-image";
 import CardContent from "../../components/common/card/card-content";
+import YearSelect from "../components/schedule/year-select";
 
-interface Props {
-  data: {
-    listOfSeasons: string[];
-    results: IRaceSeason;
-    season: string;
+type Props = {
+  searchParams?: {
+    year?: string;
   };
-}
+};
 
-function RacePage({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { results, season } = data;
+export default async function RacePage(props: Props) {
+  const season = props?.searchParams?.year || "current";
+  const listOfSeasons = await getListOfSeasons();
+  const results = await getYearRaceResults(season as string);
   return (
     <main className="p-2 lg:p-4 grid grid-cols-1 gap-4">
       <Card>
@@ -34,6 +31,11 @@ function RacePage({
             <h1 className="text-2xl md:text-4xl font-russo tracking-wider text-center">
               {season} Race calendar
             </h1>
+            <YearSelect
+              seasons={listOfSeasons}
+              selectedYear={season}
+              type="races"
+            />
           </div>
         </CardContent>
       </Card>
@@ -45,25 +47,3 @@ function RacePage({
     </main>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-  query,
-}) => {
-  const { year } = query;
-
-  const season = year || "current";
-  const listOfSeasons = await getListOfSeasons();
-  const results = await getYearRaceResults(season as string);
-
-  return {
-    props: {
-      data: {
-        results,
-        listOfSeasons,
-        season: season === "current" ? "2023" : (season as string), // I hate this
-      },
-    },
-  };
-};
-
-export default RacePage;

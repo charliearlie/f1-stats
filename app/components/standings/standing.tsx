@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Standing } from "../../lib/types";
+import type { Standing } from "@/lib/types";
 
 type Props = {
   standing: Standing;

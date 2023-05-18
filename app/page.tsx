@@ -1,4 +1,3 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Row from "../components/common/row/row";
 import {
   getDriverStandings,
@@ -11,33 +10,38 @@ import {
   Card,
   CardAction,
   CardContent,
-  CardHeader,
   CardImage,
 } from "../components/common/card";
 import PreviewLink from "../components/schedule/preview-link";
 import archiveImageMap from "../lib/util/archive-images";
 
-import type { IRaceSeason } from "../interfaces";
-import type { Standing } from "../lib/types";
 import MiniStandings from "../components/standings/mini-standings";
 
-type Props = {
-  qualifyingRow: any;
-  raceRow: IRaceSeason;
-  archiveRow: string[];
-  standings: Standing[];
+const getData = async () => {
+  const listOfSeasons = await getListOfSeasons();
+  const raceRow = await getYearRaceResults("current");
+  const standings = await getDriverStandings({ numberOfResults: 10 });
+
+  const archiveRow = listOfSeasons
+    .filter((season) => season !== raceRow.year)
+    .reverse()
+    .slice(0, 4);
+
+  return {
+    raceRow: { ...raceRow, results: raceRow.results.slice(0, 4) },
+    qualifyingRow: "",
+    archiveRow,
+    standings: standings,
+  };
 };
 
-const Home = ({
-  archiveRow,
-  raceRow,
-  standings,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export default async function Home() {
+  const { archiveRow, qualifyingRow, raceRow, standings } = await getData();
   return (
     <>
-      <Card>
+      <Card className="my-4">
         <CardContent>
-          <h2>Driver standings</h2>
+          <h2 className="flex justify-center pb-4">Driver standings</h2>
           <MiniStandings standings={standings} />
         </CardContent>
       </Card>
@@ -65,27 +69,4 @@ const Home = ({
       </Row>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const listOfSeasons = await getListOfSeasons();
-  const raceRow = await getYearRaceResults("current");
-  const standings = await getDriverStandings("current", 10);
-  // const driverPoles = getDriverPolesForASeason(seasonResults);
-
-  const archiveRow = listOfSeasons
-    .filter((season) => season !== raceRow.year)
-    .reverse()
-    .slice(0, 4); // We will do slicing in the request files
-
-  return {
-    props: {
-      raceRow: { ...raceRow, results: raceRow.results.slice(0, 4) },
-      qualifyingRow: "",
-      archiveRow,
-      standings,
-    },
-  };
-};
-
-export default Home;
+}
