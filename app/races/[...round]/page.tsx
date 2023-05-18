@@ -1,32 +1,26 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-
 import {
   getDriverStandings,
   getRoundRaceResult,
-} from "../../services/api-service";
-import Card from "../../components/common/card/card";
-import CardContent from "../../components/common/card/card-content";
+} from "../../../services/api-service";
+import Card from "../../../components/common/card/card";
+import CardContent from "../../../components/common/card/card-content";
 import Link from "next/link";
-import { RaceFullResult } from "../../interfaces/race-result.interface";
-import RaceStatus from "../../components/race-status";
-
-type RequestData = {
-  season: string;
-  round: string;
-  circuit?: string;
-  date: string;
-  raceName?: string;
-  results?: RaceFullResult[];
-};
+import { RaceFullResult } from "../../../interfaces/race-result.interface";
+import RaceStatus from "../../../components/race-status";
 
 type Props = {
-  data: RequestData;
+  params: {
+    round?: [key: string];
+  };
 };
 
-function RacePage({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { circuit, date, raceName, results, round, season } = data;
+export default async function RacePage(props: Props) {
+  const [year, roundNumber] = props.params.round as string[];
+
+  const roundData = await getRoundRaceResult(roundNumber, year);
+  const standingsAfterRound = await getDriverStandings({ round: roundNumber });
+
+  const { circuit, date, raceName, results, round, season } = roundData;
   return (
     <main className="p-2 sm:p-8">
       <Card>
@@ -107,21 +101,3 @@ function RacePage({
     </main>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-  query,
-}) => {
-  const [year, round] = query.round as string[];
-
-  const roundData = await getRoundRaceResult(round, year);
-  const standingsAfterRound = await getDriverStandings({ round });
-
-  return {
-    props: {
-      data: roundData as RequestData,
-      standings: standingsAfterRound,
-    },
-  };
-};
-
-export default RacePage;
