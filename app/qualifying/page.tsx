@@ -35,7 +35,11 @@ export default async function QualifyingPage(props: Props) {
               {season} Qualifying
             </h1>
             {driverPoles.map((driver) => (
-              <Link href={`/driver/${driver.driverId}`} className="flex gap-2">
+              <Link
+                key={driver.code}
+                href={`/driver/${driver.driverId}`}
+                className="flex gap-2"
+              >
                 <div className={`border-l-2 border-black`}>
                   {driver.familyName} {driver.numberOfPoles}
                 </div>
