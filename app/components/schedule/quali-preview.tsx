@@ -1,7 +1,5 @@
-import { QualiResult } from "../../interfaces/quali-season.interface";
-import countryCodeMap, {
-  ICountryCodeMap,
-} from "../../lib/util/country-code-map";
+import { QualiResult } from "@/interfaces/quali-season.interface";
+import countryCodeMap, { ICountryCodeMap } from "@/lib/util/country-code-map";
 import Card from "../common/card/card";
 import CardAction from "../common/card/card-action";
 import CardContent from "../common/card/card-content";

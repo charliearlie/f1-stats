@@ -1,14 +1,12 @@
-import countryCodeMap, {
-  ICountryCodeMap,
-} from "../../lib/util/country-code-map";
+import countryCodeMap, { ICountryCodeMap } from "@/lib/util/country-code-map";
 import Card from "../common/card/card";
 import CardAction from "../common/card/card-action";
 import CardContent from "../common/card/card-content";
 import CardImage from "../common/card/card-image";
 import PreviewLink from "./preview-link";
-
-import type { RaceResult } from "../../interfaces/race-season.interface";
 import RowCard from "../common/row/row-card";
+
+import type { RaceResult } from "@/interfaces/race-season.interface";
 
 type Props = Pick<
   RaceResult,

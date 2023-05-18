@@ -39,6 +39,7 @@ export default function YearSelect({ seasons, selectedYear, type }: Props) {
         position="popper"
       >
         <SelectGroup>
+          <SelectLabel className="SelectLabel">Seasons</SelectLabel>
           {seasons.reverse().map((season) => (
             <SelectItem key={season} className="cursor-pointer" value={season}>
               {season}

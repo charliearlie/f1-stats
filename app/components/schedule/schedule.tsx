@@ -1,6 +1,6 @@
 import RacePreview from "./race-preview";
 import QualiPreview from "./quali-preview";
-import type { IQualiSeason, IRaceSeason } from "../../interfaces";
+import type { IQualiSeason, IRaceSeason } from "@/interfaces";
 
 interface Props {
   qualiSeason?: IQualiSeason;
